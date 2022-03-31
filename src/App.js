@@ -28,7 +28,7 @@ function App() {
         
         <Switch>
        
-        <Route exact path="/" render={props =>
+        <Route exact path="/marsversion" render={props =>
   <div>
    <Head/>
     <Content/>
