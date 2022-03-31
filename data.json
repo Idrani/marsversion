@@ -1,0 +1,19 @@
+{
+  "of": [
+    {
+      "RefPr": "on",
+      "NomPr": "one",
+      "StatutPr": "one",
+      "id": 1
+    },
+    {
+      "RefPr": "two",
+      "NomPr": "two",
+      "id": 2
+    },
+    {
+      "RefPr": "6",
+      "id": 3
+    }
+  ]
+}
