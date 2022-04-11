@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 export default function Menu() {
     const [po,setPo]=useState([   ])
-    const [users,setUsers]=useState([])
+    const [pieces,setPieces]=useState([])
     useEffect(()=>{
         getData()
-        
+        getPieces()
      },[])
      const getData=()=>{
       fetch('/PO_followUP').then(resp=>resp.json())
@@ -14,13 +14,13 @@ export default function Menu() {
       
       
      }
-    //  const getUsers=()=>{
-    //     fetch('/api/register').then(resp=>resp.json())
-    //     .then(resp=>setUsers(resp.length))
+      const getPieces=()=>{
+         fetch('/List_OF_Pieces').then(resp=>resp.json())
+         .then(resp=>setPieces(resp.length))
         
         
         
-    //    }
+        }
 
 
   return (
@@ -37,7 +37,7 @@ export default function Menu() {
                             <div class="col-xl-4 col-md-6">
                                 <div class="card  text-black mb-4 " style={{backgroundColor:'#212529',borderRadius:''}} >
                                     <div class="card-body"><h3>Users</h3></div>
-                                    <h1 style={{textAlign:'center'}}>{users}</h1>
+                                    <h1 style={{textAlign:'center'}}>{pieces}</h1>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-md-6">
@@ -48,8 +48,8 @@ export default function Menu() {
                             </div>
                             <div class="col-xl-4 col-md-6">
                                 <div class="card text-black mb-4" style={{backgroundColor:'#212529'}}>
-                                    <div class="card-body"><h3>Projects</h3></div>
-                                    <h1 style={{textAlign:'center'}}>13</h1>
+                                    <div class="card-body"><h3>Pieces</h3></div>
+                                    <h1 style={{textAlign:'center'}}>{pieces}</h1>
                                     
                                 </div>
                             </div>

@@ -5,10 +5,13 @@ import { ExportCsv, ExportPdf } from '@material-table/exporters';
 import axios from 'axios';
 import {Link} from '@material-ui/core';
 
+function isString(value) {
+	return typeof value === 'string' || value instanceof String;
+}
 
 export default function PO() {
    
-    // const url="http://localhost:8001/of"
+    
     
    const [tableData,setTableData]=useState([   ])
    
@@ -16,7 +19,6 @@ export default function PO() {
    const getData=()=>{
     fetch('/PO_followUP').then(resp=>resp.json())
     .then(resp=>setTableData(resp))
-    
     .then(console.log("here",tableData))
     
     
@@ -26,7 +28,17 @@ export default function PO() {
     
  },[])
 
-   const columns=[{title:"RefPr",field:"RefPr",width:90},{title:"NomPr",field:"NomPr",width:90 },
+   const columns=[{title:"RefPr",field:"RefPr",width:90,validate:rowData=>{
+       if(rowData.RefPr===undefined || rowData.RefPr==="" ){
+           return "Required"
+       }
+      
+       else if (Number(rowData.RefPr)===true){
+        return "no"
+    }
+       
+    return true
+   }},{title:"NomPr",field:"NomPr",width:90 },
    {title:"NumOF",field:"NumOF",width:70 ,cellStyle: {
     width: 50,
     maxWidth: 20

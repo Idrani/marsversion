@@ -40,9 +40,9 @@ export default function Sidebar() {
                                 PO Follow Up
                             </Link>
 
-                            <Link className="nav-link" to="/dashboard/list">
+                            <Link className="nav-link" to="#">
                                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
-                                Tasks List
+                                Validation
                             </Link>
                             <Link className="nav-link" to="/dashboard/history">
                                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>

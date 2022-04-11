@@ -3,7 +3,12 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MaterialTable from "@material-table/core";
 import { ExportCsv, ExportPdf } from '@material-table/exporters';
+import { MDBBtn } from 'mdb-react-ui-kit';
+import { Link } from 'react-router-dom';
 
+function isString(value) {
+	return typeof value === 'string' || value instanceof String;
+}
 
 
 export default function () {
@@ -36,7 +41,14 @@ export default function () {
      
     
 
-    const columns=[{title:"NumOF",field:"NumOF"},
+    const columns=[{title:"NumOF",field:"NumOF",validate:rowData=>{
+        if(rowData.NumOF===undefined || rowData.NumOF==="" ){
+            return "Required"
+        }
+       
+        
+     return true
+    }},
    {title:"Qté",field:"Qte"},{title:"Désignation",field:"Désignation"},
    {title:"Matiére",field:"Matiére"},{title:"Dimension",field:"Dimension"},{title:"Qual",field:"Qual"},{title:"Prévu(h)",field:"Prévu_h"},
    {title:"Réalisé(h)",field:"Réalisé_h"},{title:"Conformité(C)",field:"Conformité_C"},{title:"Conformité(NC)",field:"Conformité_NC"}]
@@ -111,11 +123,10 @@ export default function () {
                             
                             />
                            
-
-
+                          
                            
                                 
-
+                         
 
 
 
@@ -124,8 +135,20 @@ export default function () {
                             
                         </div>
                        
+                       
                     </div>
+
                     </main>
+                    
+                     
+<div style={{marginTop:'420px',marginLeft:'45%'}}>
+<Link to={{
+    pathname:`/dashboard/validate/${id}`, state:{stateparam: {id}}
+}}><MDBBtn rounded color='success' style={{height:'40px' ,width:'20%'}} >
+        Validate
+      </MDBBtn></Link>
+</div>
     </div>
+    
   )
 }
