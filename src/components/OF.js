@@ -21,8 +21,9 @@ export default function () {
         fetch('/List_OF_Pieces').then(resp=>resp.json())
         .then(resp=>resp.map((piece)=>{
              if(piece.NumOF==id){
-              setTablePieces([...tablePieces,piece])
-            console.log(piece)
+                tablePieces.push(piece)
+              setTablePieces([...tablePieces])
+            
           }
         }))
     
@@ -41,15 +42,17 @@ export default function () {
      
     
 
-    const columns=[{title:"NumOF",field:"NumOF",validate:rowData=>{
-        if(rowData.NumOF===undefined || rowData.NumOF==="" ){
-            return "Required"
-        }
+    const columns=[{title:"Id",field:"id_piéce"
+    // ,validate:rowData=>{
+    //     if(rowData.NumOF===undefined || rowData.NumOF==="" ){
+    //         return "Required"
+    //     }
        
         
-     return true
-    }},
-   {title:"Qté",field:"Qte"},{title:"Désignation",field:"Désignation"},
+    //  return true
+    // }
+},
+    {title:"NumOF",field:"NumOF"},{title:"Qté",field:"Qte"},{title:"Désignation",field:"Désignation"},
    {title:"Matiére",field:"Matiére"},{title:"Dimension",field:"Dimension"},{title:"Qual",field:"Qual"},{title:"Prévu(h)",field:"Prévu_h"},
    {title:"Réalisé(h)",field:"Réalisé_h"},{title:"Conformité(C)",field:"Conformité_C"},{title:"Conformité(NC)",field:"Conformité_NC"}]
   return (
