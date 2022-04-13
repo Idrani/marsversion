@@ -75,7 +75,27 @@ export default function PO() {
                                     }).then(resp=>resp.json())
                                     .then(resp=>console.log("hii",resp))
                                     resolve()
+                                    console.log(newData.NumOF)
+                                    ///
+                                    fetch('/validationOF',{
+                                        method:"POST",
+                                        headers:{'Content-type':"application/json"},
+                                        
+                                        body:JSON.stringify(
+                                            {
+                                            "NumOF": newData.NumOF,
+                                            "NumV": 0,
+                                            "valide": 0,
+                                            "date1": "2022-04-12",
+                                            "date2": "2022-04-12",
+                                            "date3": "2022-04-12",
+                                            "date4": "2022-04-12",
+                                            "date5": "2022-04-12"}
+                                        )
+                                    })
                                     
+                                    resolve()
+
                                         
                                 }),
                                 onRowUpdate:(newData,oldRow)=>new Promise((resolve,reject)=>{
