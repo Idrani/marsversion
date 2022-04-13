@@ -70,28 +70,59 @@ const handelDate4 = () =>{
     const [disnum,setDisnum]=useState(0)
     const [etat,setEtat]=useState(
        {
-        NumOF: id,
-        dnum: 1,
-        validation:0
+        "NumOF": id,
+        "NumV": 0,
+        "valide": 0,
+        "date1": "2022-04-12",
+        "date2": "2022-04-12",
+        "date3": "2022-04-12",
+        "date4": "2022-04-12",
+        "date5": "2022-04-12"
+           
       }
     )
     
+    
     const getPieces=()=>{
       fetch('/validationOF').then(resp=>resp.json())
+      
        .then(resp=>resp.map((val)=>{
+
             if(val.NumOF==id){
              
              setDisnum(val.NumV)
-             if(disnum===0){
-               setTime(val.date1)
-             }
-             else if(disnum===1){
-              setTime(val.date1)
-               setTime1(val.date2)
+             
+              if(disnum===1){
+                setDate(val.date1);
+                
              }
              else if(disnum===2){
-              setTime(val.date1)
-              setTime1(val.date2)
+              setDate(val.date1);
+              setDate1(val.date2);
+               
+             }
+             else if(disnum===3){
+              setDate(val.date1);
+              setDate1(val.date2);
+              setDate2(val.date3);
+
+               
+             }
+             else if(disnum===4){
+              setDate(val.date1);
+              setDate1(val.date2);
+              setDate2(val.date3);
+              setDate3(val.date4);
+
+               
+             }
+             else if(disnum===5){
+              setDate(val.date1);
+              setDate1(val.date2);
+              setDate2(val.date3);
+              setDate3(val.date4);
+              setDate4(val.date5);
+
                
              }
              
@@ -218,19 +249,28 @@ const handelDate4 = () =>{
 
      
     function sendEmail1(e){
-            
+      let dt = new Date().toLocaleDateString();
             setDisable1(true)
             setDisable2(false)
-            setDisnum(1)
+            setEtat(prevState => ({
+              prevState,
+              NumV: 1
+          }));
+          const someData = {
+            "NumOF": id,
+            "NumV": 1,
+            "valide": 0,
+            "date1": dt,
+            "date2": "2022-04-12",
+            "date3": "2022-04-12",
+            "date4": "2022-04-12",
+            "date5": "2022-04-12"
+           }
             
-            // setDisnum(1)
-            // axios.PATCH('http://localhost:8000/validation/'+ numof,etat)
-              .then((etat)=>{
-                console.log(etat)
-              })
-              .catch((err)=>{
-                console.log(err)
-              })
+               
+            
+            
+           
              
               
             //  emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams1,'PSMOy6FSz8kA1SiPu')
@@ -240,20 +280,63 @@ const handelDate4 = () =>{
             //     console.log('FAILED...', error);
             //  }); 
             document.getElementById('v1').style.backgroundColor="#9dff9d"
-         
-         
+            
              
+
+              fetch('/validationOF/' + id ,{
+               method:"PUT",
+               headers:{'Content-type':"application/json"},
+               body:JSON.stringify(
+                  {
+                 "NumOF": someData.NumOF,
+                 "NumV": 1,
+                 "valide": 0,
+                 "date1": dt,
+                "date2": "2022-04-12",
+                "date3": "2022-04-12",
+                 "date4": "2022-04-12",
+                "date5": "2022-04-12"
+                })
+               
+           }).then(resp=>resp.json())
+           .then(resp=>{setEtat(resp) })
+         
+             console.log(dt)
     }
+    
            
-           
- 
+    
 
         function sendEmail2(e){
         
-            
+          let dt = new Date().toLocaleDateString();
                  setDisable2(true)
                  setDisable3(false)
-                 setDisnum(2)
+                 const someData = {
+                  "NumOF": id,
+                  "NumV": 1,
+                  "valide": 0,
+                  "date1": "2022-04-12",
+                  "date2": "2022-04-12",
+                  "date3": "2022-04-12",
+                  "date4": "2022-04-12",
+                  "date5": "2022-04-12"
+                 }
+                 fetch('/validationOF/' + id ,{
+                  method:"PUT",
+                  headers:{'Content-type':"application/json"},
+                  body:JSON.stringify({
+                   "NumOF": someData.NumOF,
+                   "NumV": 2,
+                   "valide": 0,
+                   "date1": cdate,
+                  "date2": dt,
+                  "date3": "2022-04-12",
+                   "date4": "2022-04-12",
+                  "date5": "2022-04-12"
+                  })
+              }).then(resp=>resp.json())
+              .then(resp=>{setEtat(resp) })
                     
                     console.log(disnum)
                     //  emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams2,'PSMOy6FSz8kA1SiPu')
@@ -267,10 +350,34 @@ const handelDate4 = () =>{
                 }
     
         function sendEmail3(e){
-           
+          let dt = new Date().toLocaleDateString();
                 setDisable3(true)
                 setDisable4(false)
-                setDisnum(3)
+                const someData = {
+                  "NumOF": id,
+                  "NumV": 1,
+                  "valide": 0,
+                  "date1": "2022-04-12",
+                  "date2": "2022-04-12",
+                  "date3": "2022-04-12",
+                  "date4": "2022-04-12",
+                  "date5": "2022-04-12"
+                 }
+                fetch('/validationOF/' + id ,{
+                  method:"PUT",
+                  headers:{'Content-type':"application/json"},
+                  body:JSON.stringify({
+                   "NumOF": someData.NumOF,
+                   "NumV": 3,
+                   "valide": 0,
+                   "date1": cdate,
+                  "date2": cdate1,
+                  "date3": dt,
+                   "date4": "2022-04-12",
+                  "date5": "2022-04-12"
+                  })
+              }).then(resp=>resp.json())
+              .then(resp=>{setEtat(resp) })
                    
                    console.log(disnum)
                     // emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams3,'PSMOy6FSz8kA1SiPu')
@@ -284,10 +391,34 @@ const handelDate4 = () =>{
                }
     
          function sendEmail4(e){
-            
+          let dt = new Date().toLocaleDateString();
                 setDisable4(true)
                 setDisable5(false)
-                setDisnum(4)
+                const someData = {
+                  "NumOF": id,
+                  "NumV": 1,
+                  "valide": 0,
+                  "date1": "2022-04-12",
+                  "date2": "2022-04-12",
+                  "date3": "2022-04-12",
+                  "date4": "2022-04-12",
+                  "date5": "2022-04-12"
+                 }
+                fetch('/validationOF/' + id ,{
+                  method:"PUT",
+                  headers:{'Content-type':"application/json"},
+                  body:JSON.stringify({
+                   "NumOF": someData.NumOF,
+                   "NumV": 4,
+                   "valide": 0,
+                   "date1": cdate,
+                  "date2": cdate1,
+                  "date3": cdate2,
+                   "date4": dt,
+                  "date5": "2022-04-12"
+                  })
+              }).then(resp=>resp.json())
+              .then(resp=>{setEtat(resp) })
                    
                    console.log(disnum)
                 //    emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams4,'PSMOy6FSz8kA1SiPu')
@@ -303,10 +434,33 @@ const handelDate4 = () =>{
          function sendEmail5(e){
             
                 setDisable5(true)
-                
-                  
+                let dt = new Date().toLocaleDateString();
+                const someData = {
+                  "NumOF": id,
+                  "NumV": 1,
+                  "valide": 0,
+                  "date1": "2022-04-12",
+                  "date2": "2022-04-12",
+                  "date3": "2022-04-12",
+                  "date4": "2022-04-12",
+                  "date5": "2022-04-12"
+                 }
                    console.log(disnum)
-                   setDisnum(5)
+                   fetch('/validationOF/' + id ,{
+                    method:"PUT",
+                    headers:{'Content-type':"application/json"},
+                    body:JSON.stringify({
+                     "NumOF": someData.NumOF,
+                     "NumV": 5,
+                     "valide": 1,
+                     "date1": cdate,
+                    "date2": cdate1,
+                    "date3": cdate2,
+                     "date4": cdate3,
+                    "date5": dt
+                    })
+                }).then(resp=>resp.json())
+                .then(resp=>{setEtat(resp) })
                 //    emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams,'PSMOy6FSz8kA1SiPu')
                 //    .then(function(response) {
                 //       console.log('SUCCESS!', response.status, response.text);
@@ -323,7 +477,7 @@ const handelDate4 = () =>{
   
    
     <div class="container my-5" >
-        <h1 className="mt-4 text-black">Production Orders  Validation {etat.NumOF}</h1>
+        <h1 className="mt-4 text-black">Production Orders  Validation {id}</h1>
         <ol className="breadcrumb mb-4">
                             <li className="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                             <li className="breadcrumb-item active"><a href="/dashboard/PO">PO</a></li>
@@ -372,6 +526,8 @@ const handelDate4 = () =>{
           <td><h5>{cdate}</h5>
           <h5>{ctime}</h5></td>
         </tr>
+
+
         <tr id="v2">
           <td >
             <div class="d-flex align-items-center">
