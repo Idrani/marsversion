@@ -4,6 +4,7 @@ import MaterialTable from "@material-table/core";
 import { ExportCsv, ExportPdf } from '@material-table/exporters';
 import axios from 'axios';
 import {Link} from '@material-ui/core';
+import { Alert,Button } from 'react-bootstrap';
 
 function isString(value) {
 	return typeof value === 'string' || value instanceof String;
@@ -11,7 +12,21 @@ function isString(value) {
 
 export default function PO() {
    
-    
+    function AlertDismissibleExample() {
+        const [show, setShow] = useState(true);
+      
+        if (show) {
+          return (
+            <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+              <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+              <p>
+                Can Not update RefPr
+              </p>
+            </Alert>
+          );
+        }
+        return <Button onClick={() => setShow(true)}>Show Alert</Button>;
+      }
     
    const [tableData,setTableData]=useState([   ])
    
@@ -42,7 +57,11 @@ export default function PO() {
    {title:"NumOF",field:"NumOF",width:70 ,cellStyle: {
     width: 50,
     maxWidth: 20
-  },render:rowData=><Link href={`/dashbord/PO/OF${rowData.NumOF}`} >{rowData.NumOF}</Link> },{title:"StatutPr",field:"StatutPr",width:70},
+  },render:rowData=><Link href={`/dashbord/PO/OF${rowData.NumOF}`} >{rowData.NumOF}</Link> ,validate:rowData=>{
+    if(rowData.NumOF===undefined || rowData.NumOF==="" ){
+        return "Required"
+    }
+  }},{title:"StatutPr",field:"StatutPr",width:70},
    {title:"Priorité",field:"Priorité",width:70}]
    
   return (
@@ -99,14 +118,21 @@ export default function PO() {
                                         
                                 }),
                                 onRowUpdate:(newData,oldRow)=>new Promise((resolve,reject)=>{
+                                     if(newData.RefPr!=oldRow.RefPr){
+                                      alert("RefPr Can Not be updated")
+                                        return AlertDismissibleExample();
+
+                                    }
                                     fetch('/PO_followUP',{
                                         method:"PATCH",
                                         headers:{'Content-type':"application/json"},
                                         body:JSON.stringify(newData)
                                     }).then(resp=>resp.json())
+                                
                                     .then(resp=>{setTableData() 
                                       resolve()
                                     })
+                                   
                                 })
                             }}
                             options={{

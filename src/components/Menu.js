@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 export default function Menu() {
     const [po,setPo]=useState([   ])
+     
     const [pieces,setPieces]=useState([])
     useEffect(()=>{
+       
         getData()
         getPieces()
      },[])
@@ -30,6 +33,7 @@ export default function Menu() {
                 <main style={{position:'relative',marginTop:'10px'}}>
                     <div class="container text-black">
                         <h1 class="mt-4">Dashboard</h1>
+                       
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>

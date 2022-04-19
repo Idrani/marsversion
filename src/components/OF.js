@@ -52,7 +52,7 @@ export default function () {
     //  return true
     // }
 },
-    {title:"NumOF",field:"NumOF"},{title:"Qté",field:"Qte"},{title:"Désignation",field:"Désignation"},
+    {title:"Qté",field:"Qte"},{title:"Désignation",field:"Désignation"},
    {title:"Matiére",field:"Matiére"},{title:"Dimension",field:"Dimension"},{title:"Qual",field:"Qual"},{title:"Prévu(h)",field:"Prévu_h"},
    {title:"Réalisé(h)",field:"Réalisé_h"},{title:"Conformité(C)",field:"Conformité_C"},{title:"Conformité(NC)",field:"Conformité_NC"}]
   return (

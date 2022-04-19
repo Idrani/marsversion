@@ -6,18 +6,26 @@ import Menu from './Menu'
 import { Route,Switch } from 'react-router-dom';
 import axios from 'axios'
 import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
-export default function Sidebar() {
+export default function Sidebar(props) {
+   
+   
+   
     useEffect(()=>{
+        
         getData()
+        
         
     },[])
     const getData=()=>{
       axios.get('')
         .then(res=>{console.log(res);})
       }
-  return (
+
       
+  return (
+   
     
 
 
@@ -67,7 +75,7 @@ export default function Sidebar() {
                     </div>
                     <div className="sb-sidenav-footer">
                         <div className="small">Logged in as:</div>
-                        Start Bootstrap
+                        
                     </div>
                 </nav>
             </div>

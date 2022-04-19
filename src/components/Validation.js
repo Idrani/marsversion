@@ -250,6 +250,7 @@ const handelDate4 = () =>{
      
     function sendEmail1(e){
       let dt = new Date().toLocaleDateString();
+      let tt= new Date().toLocaleTimeString();
             setDisable1(true)
             setDisable2(false)
             setEtat(prevState => ({
@@ -260,7 +261,7 @@ const handelDate4 = () =>{
             "NumOF": id,
             "NumV": 1,
             "valide": 0,
-            "date1": dt,
+            "date1": dt+'||'+tt,
             "date2": "2022-04-12",
             "date3": "2022-04-12",
             "date4": "2022-04-12",
@@ -268,7 +269,6 @@ const handelDate4 = () =>{
            }
             
                
-            
             
            
              
@@ -291,7 +291,7 @@ const handelDate4 = () =>{
                  "NumOF": someData.NumOF,
                  "NumV": 1,
                  "valide": 0,
-                 "date1": dt,
+                 "date1": dt+'||'+tt,
                 "date2": "2022-04-12",
                 "date3": "2022-04-12",
                  "date4": "2022-04-12",
@@ -310,6 +310,7 @@ const handelDate4 = () =>{
         function sendEmail2(e){
         
           let dt = new Date().toLocaleDateString();
+          let tt= new Date().toLocaleTimeString();
                  setDisable2(true)
                  setDisable3(false)
                  const someData = {
@@ -330,7 +331,7 @@ const handelDate4 = () =>{
                    "NumV": 2,
                    "valide": 0,
                    "date1": cdate,
-                  "date2": dt,
+                  "date2": dt+'||'+tt,
                   "date3": "2022-04-12",
                    "date4": "2022-04-12",
                   "date5": "2022-04-12"
@@ -351,6 +352,7 @@ const handelDate4 = () =>{
     
         function sendEmail3(e){
           let dt = new Date().toLocaleDateString();
+          let tt= new Date().toLocaleTimeString();
                 setDisable3(true)
                 setDisable4(false)
                 const someData = {
@@ -372,7 +374,7 @@ const handelDate4 = () =>{
                    "valide": 0,
                    "date1": cdate,
                   "date2": cdate1,
-                  "date3": dt,
+                  "date3": dt+'||'+tt,
                    "date4": "2022-04-12",
                   "date5": "2022-04-12"
                   })
@@ -392,6 +394,7 @@ const handelDate4 = () =>{
     
          function sendEmail4(e){
           let dt = new Date().toLocaleDateString();
+          let tt= new Date().toLocaleTimeString();
                 setDisable4(true)
                 setDisable5(false)
                 const someData = {
@@ -414,7 +417,7 @@ const handelDate4 = () =>{
                    "date1": cdate,
                   "date2": cdate1,
                   "date3": cdate2,
-                   "date4": dt,
+                   "date4": dt+'||'+tt,
                   "date5": "2022-04-12"
                   })
               }).then(resp=>resp.json())
@@ -435,6 +438,7 @@ const handelDate4 = () =>{
             
                 setDisable5(true)
                 let dt = new Date().toLocaleDateString();
+                let tt= new Date().toLocaleTimeString();
                 const someData = {
                   "NumOF": id,
                   "NumV": 1,
@@ -457,7 +461,7 @@ const handelDate4 = () =>{
                     "date2": cdate1,
                     "date3": cdate2,
                      "date4": cdate3,
-                    "date5": dt
+                    "date5": dt+'||'+tt
                     })
                 }).then(resp=>resp.json())
                 .then(resp=>{setEtat(resp) })
@@ -524,7 +528,7 @@ const handelDate4 = () =>{
       </MDBBtn>
           </td>
           <td><h5>{cdate}</h5>
-          <h5>{ctime}</h5></td>
+          </td>
         </tr>
 
 
@@ -558,7 +562,7 @@ const handelDate4 = () =>{
       </MDBBtn>
           </td>
           <td><h5>{cdate1}</h5>
-          <h5>{ctime1}</h5></td>
+          </td>
         </tr >
         <tr id="v3">
           <td>
@@ -590,7 +594,7 @@ const handelDate4 = () =>{
       </MDBBtn>
           </td>
           <td><h5>{cdate2}</h5>
-          <h5>{ctime2}</h5></td>
+          </td>
         </tr>
 
 
@@ -624,7 +628,7 @@ const handelDate4 = () =>{
       </MDBBtn>
           </td>
           <td><h5>{cdate3}</h5>
-          <h5>{ctime3}</h5></td>
+          </td>
         </tr>
 
 
@@ -658,7 +662,7 @@ const handelDate4 = () =>{
       </MDBBtn>
           </td>
           <td><h5>{cdate4}</h5>
-          <h5>{ctime4}</h5></td>
+          </td>
         </tr>
       </tbody>
 

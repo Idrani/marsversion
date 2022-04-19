@@ -41,7 +41,8 @@ function App() {
           <Route  path="/dashboard" render={props =>
   <div>
     <Nav/>
-   <Sidebar/>
+   <Sidebar {...props}/>
+   
    <Route exact path="/dashboard" component={Menu}/>
     
     <Route exact path="/dashboard/PO" component={PO}/>
