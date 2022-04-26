@@ -115,8 +115,11 @@ export default function PO() {
                                     
                                     resolve()
 
-                                        
+                                    .catch((err) => {
+                                      alert(err);
+                                    }); 
                                 }),
+                                
                                 onRowUpdate:(newData,oldRow)=>new Promise((resolve,reject)=>{
                                      if(newData.RefPr!=oldRow.RefPr){
                                       alert("RefPr Can Not be updated")
@@ -133,6 +136,9 @@ export default function PO() {
                                       resolve()
                                     })
                                    
+                                })
+                                .catch((err) => {
+                                  alert(err);
                                 })
                             }}
                             options={{

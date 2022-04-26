@@ -11,6 +11,7 @@ import Head from './components/Head';
 import Content from './components/Content';
 import Nav from './components/Nav';
 import Validation from './components/Validation';
+import Piece from './components/Piece';
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
    <Nav/>
    <Sidebar/>
     <Route  path="/dashbord/PO/OF:id" component={OF}/>
+     <Route  path="/dashbord/PO/OF/piece:id" component={Piece}/>
    
     </div> 
 

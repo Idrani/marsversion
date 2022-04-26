@@ -42,7 +42,7 @@ export default function () {
      
     
 
-    const columns=[{title:"Id",field:"id_piéce"
+    const columns=[{title:"Index",field:"Index" ,render: rowData => rowData.tableData.id + 1
     // ,validate:rowData=>{
     //     if(rowData.NumOF===undefined || rowData.NumOF==="" ){
     //         return "Required"
@@ -51,10 +51,10 @@ export default function () {
         
     //  return true
     // }
-},
+},{title:"NumOF",field:"NumOF",initialEditValue:id},
     {title:"Qté",field:"Qte"},{title:"Désignation",field:"Désignation"},
    {title:"Matiére",field:"Matiére"},{title:"Dimension",field:"Dimension"},{title:"Qual",field:"Qual"},{title:"Prévu(h)",field:"Prévu_h"},
-   {title:"Réalisé(h)",field:"Réalisé_h"},{title:"Conformité(C)",field:"Conformité_C"},{title:"Conformité(NC)",field:"Conformité_NC"}]
+   {title:"Réalisé(h)",field:"Réalisé_h"},{title:"Conformité(C)",field:"Conformité_C"},{title:"Conformité(NC)",field:"Conformité_NC"},{title:"Plan2D",field:"plan",render:rowData=><Link to={`/dashbord/PO/OF/piece${id + rowData.id_piéce}`} >piece</Link>}]
   return (
 
     <div  >
@@ -86,9 +86,9 @@ export default function () {
                                         
                                         body:JSON.stringify(newData)
                                     }).then(resp=>resp.json())
-                                    .then(resp=>console.log("hii",resp))
+                                    
                                     resolve()
-                                        
+                                    
                                 }),
                                 onRowUpdate:(newData,oldRow)=>new Promise((resolve,reject)=>{
                                     fetch('/List_OF_Pieces',{
@@ -98,8 +98,9 @@ export default function () {
                                         body:JSON.stringify(newData)
                                     }).then(resp=>resp.json())
                                     .then(resp=>{setTablePieces() 
-                                      resolve()
+                                      resolve();
                                     })
+                                    
                                 })
                             }}
                             
