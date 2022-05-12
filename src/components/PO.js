@@ -4,13 +4,18 @@ import MaterialTable from "@material-table/core";
 import { ExportCsv, ExportPdf } from '@material-table/exporters';
 import axios from 'axios';
 import {Link} from '@material-ui/core';
+import { Route } from 'react-router-dom';
+import { Router, Switch } from 'react-router-dom';
 import { Alert,Button } from 'react-bootstrap';
+import Validation from './Validation';
+import OF from './OF';
+
 
 function isString(value) {
 	return typeof value === 'string' || value instanceof String;
 }
 
-export default function PO() {
+export default function PO(props) {
    
     function AlertDismissibleExample() {
         const [show, setShow] = useState(true);
@@ -39,6 +44,10 @@ export default function PO() {
     
    }
    useEffect(()=>{
+   
+      console.log(props.name)
+       
+    
     getData()
     
  },[])
@@ -57,11 +66,11 @@ export default function PO() {
    {title:"NumOF",field:"NumOF",width:70 ,cellStyle: {
     width: 50,
     maxWidth: 20
-  },render:rowData=><Link href={`/dashbord/PO/OF${rowData.NumOF}`} >{rowData.NumOF}</Link> ,validate:rowData=>{
+  },render:rowData=><Link href={`/dashboard${props.name}/PO/OF${rowData.NumOF}`} >{rowData.NumOF}</Link> ,validate:rowData=>{
     if(rowData.NumOF===undefined || rowData.NumOF==="" ){
         return "Required"
     }
-  }},{title:"StatutPr",field:"StatutPr",width:70},
+  }},{title:"Demandeur",field:"StatutPr",width:70},
    {title:"Priorité",field:"Priorité",width:70}]
    
   return (
@@ -69,7 +78,7 @@ export default function PO() {
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*',
     <div>
         <main >
-                    <div className="container px-5 text-black mt-5">
+                    <div className="container  text-black ">
                         <h1 className="mt-4">Production Orders List</h1>
                         <ol className="breadcrumb mb-4">
                             <li className="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
@@ -94,7 +103,8 @@ export default function PO() {
                                     }).then(resp=>resp.json())
                                     .then(resp=>console.log("hii",resp))
                                     resolve()
-                                    console.log(newData.NumOF)
+                                    window.location.reload(false);
+                                    
                                     ///
                                     fetch('/validationOF',{
                                         method:"POST",
@@ -115,9 +125,7 @@ export default function PO() {
                                     
                                     resolve()
 
-                                    .catch((err) => {
-                                      alert(err);
-                                    }); 
+                                    window.location.reload(false);
                                 }),
                                 
                                 onRowUpdate:(newData,oldRow)=>new Promise((resolve,reject)=>{
@@ -135,11 +143,9 @@ export default function PO() {
                                     .then(resp=>{setTableData() 
                                       resolve()
                                     })
-                                   
+                                    window.location.reload(false);
                                 })
-                                .catch((err) => {
-                                  alert(err);
-                                })
+                                
                             }}
                             options={{
                                 rowStyle:(data,index)=>index%2==0?{background:"#f5f5f5"}:null,
@@ -182,6 +188,7 @@ export default function PO() {
                             
                         </div>
                     </div>
+                   
                     </main>
     </div>
     

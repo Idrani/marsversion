@@ -48,9 +48,9 @@ export default function Sidebar(props) {
                                 PO Follow Up
                             </Link>
 
-                            <Link className="nav-link" to="#">
+                            <Link className="nav-link" to="/dashboard/tasks">
                                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
-                                Validation
+                                Tasks List
                             </Link>
                             <Link className="nav-link" to="/dashboard/history">
                                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>

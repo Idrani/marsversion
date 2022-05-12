@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 function Validation(props) {
 
 const {id}= useLocation().state.stateparam;
+const {taille}= useLocation().state.table;
+
 
 
 const [cdate,setDate] = useState(); 
@@ -81,7 +83,28 @@ const handelDate4 = () =>{
            
       }
     )
-    
+    const [tableValid,setTableValid]=useState([   ])
+    const [lenght,setLenght]=useState()
+
+    const getPiece=()=>{
+      fetch('/List_OF_Pieces').then(resp=>resp.json())
+      .then(resp=>resp.map((piece)=>{
+           if(piece.NumOF==id){
+              tableValid.push(piece)
+            setTableValid([...tableValid])
+            
+            if(tableValid.length==0){
+                
+              setDisable1(true)
+              
+            }
+           
+            
+          
+        }
+      }))
+  
+  };
     
     const getPieces=()=>{
       fetch('/validationOF').then(resp=>resp.json())
@@ -137,9 +160,11 @@ const handelDate4 = () =>{
 
 
     useEffect(() => {
-       
-      getPieces();
-          
+      getPiece();
+      
+      
+     
+     
               
              
              
@@ -523,7 +548,10 @@ const handelDate4 = () =>{
         }}  disabled={disable1}>
         Validate
       </MDBBtn>
-      <MDBBtn rounded className='mx-2' color='danger'>
+      <MDBBtn   onClick={() => {
+          document.getElementById('v1').style.backgroundColor="#FA5F55"
+          
+        }}  rounded className='mx-2' color='danger' >
         Invalidate
       </MDBBtn>
           </td>
@@ -557,7 +585,10 @@ const handelDate4 = () =>{
         }}  disabled={disable2}>
         Validate
       </MDBBtn>
-      <MDBBtn rounded className='mx-2' color='danger'>
+      <MDBBtn onClick={() => {
+          document.getElementById('v2').style.backgroundColor="#FA5F55"
+          
+        }} rounded className='mx-2' color='danger'>
         Invalidate
       </MDBBtn>
           </td>
@@ -589,7 +620,10 @@ const handelDate4 = () =>{
         }}  disabled={disable3}>
         Validate
       </MDBBtn>
-      <MDBBtn rounded className='mx-2' color='danger'>
+      <MDBBtn rounded className='mx-2' color='danger' onClick={() => {
+          document.getElementById('v3').style.backgroundColor="#FA5F55"
+          
+        }}>
         Invalidate
       </MDBBtn>
           </td>
@@ -623,7 +657,10 @@ const handelDate4 = () =>{
         }}  disabled={disable4}>
         Validate
       </MDBBtn>
-      <MDBBtn rounded className='mx-2' color='danger'>
+      <MDBBtn rounded className='mx-2' color='danger' onClick={() => {
+          document.getElementById('v4').style.backgroundColor="#FA5F55"
+          
+        }}>
         Invalidate
       </MDBBtn>
           </td>
@@ -657,7 +694,10 @@ const handelDate4 = () =>{
         }}  disabled={disable5} >
         Validate
       </MDBBtn>
-      <MDBBtn rounded className='mx-2' color='danger'>
+      <MDBBtn rounded className='mx-2' color='danger' onClick={() => {
+          document.getElementById('v5').style.backgroundColor="#FA5F55"
+          
+        }}>
         Invalidate
       </MDBBtn>
           </td>

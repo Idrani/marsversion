@@ -2,13 +2,23 @@ import React,{SyntheticEvent, useState} from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import { Side } from './side';
+import { Route } from 'react-router-dom';
+import ProtectedRoutes from './ProtectedRoutes';
 
 
+
+
+
+toast.configure()
 const Login = () =>{
   const [auth,setAuth]=useState();
   const [email,setEmail]=useState();
   const [password,setPassword]=useState();
   const [name,setName]=useState();
+  const [status, setStatus] = useState(false);
 
 
   const handleSubmit = e => {
@@ -24,6 +34,7 @@ const Login = () =>{
     axios.post('/api/login', data).then (
       res => {
           console.log(res.data)
+          console.log(data)
           localStorage.setItem('token', res.data.token);
       setAuth (
             true
@@ -32,57 +43,70 @@ const Login = () =>{
       
       
   })
+  
+  
   .catch(err =>{
-      console.log(err)
+    notify()
+    console.log(err)
   })
-  console.log(email)
-console.log(password)
-console.log(name)
+  
 
 };
 
-
-if (auth) {
-return  <Redirect
-            to={{
-            pathname: "/dashboard",
-            state: { name: name }
-          }}
-        />
-  
+const notify=()=>{
+  toast.error("Please Verify Your Data", {
+    theme: "dark",position: toast.POSITION.TOP_CENTER
+  })
+ 
 }
+if (auth) {
+ return  <Redirect
+             to={{
+             pathname: `/dashboard${name}`,
+            
+             
+             
+           }}
+          
+         />
+        }
+    
+     
 
 
   return(
     
-    <div className='container'>
-    <form onSubmit={ handleSubmit }>
+    <div className='all'>
+    <div className='bb  d-flex justify-content align-item '  >
+    
+    <form onSubmit={ handleSubmit } className='box'  >
 
                 
 
-                 <h3>Login</h3>
-                 <div className="form-group">
-                 <label>Name</label>
-                 <input type="text" className="form-control" placeholder = "Name" 
+                 <h1 >Login</h1>
+                 
+                 
+                 <input type="text"  placeholder = "Name" 
                      onChange = {e => setName(e.target.value)}
                  />
-                 </div>
-                 <div className="form-group">
-                 <label>Email</label>
-                 <input type="email" className="form-control" placeholder = "Email" 
+                 
+                 
+                
+                 <input type="email"  placeholder = "Email" 
                      onChange = {e => setEmail(e.target.value)}
+                     
                  />
-                 </div>
+                 
                 
   
-                 <div className="form-group">
-                 <label>Password</label>
-                 <input type="password" className="form-control" placeholder = "Password" 
+                 
+                 
+                 <input type="password" placeholder = "Password" 
                      onChange = {e => setPassword(e.target.value)}
                  />
-                 </div>
-  
-                <button className="btn btn-primary btn-block">Login</button>
+                
+                  
+                <button className="btm   "   >Login</button>
                  
                  <p className="forgot-password text-right">
                    <Link to={'/forgot'}>Forgot password?</Link>
@@ -90,6 +114,8 @@ return  <Redirect
   
                  
               </form>
+              
+    </div>
     </div>
   )
 };

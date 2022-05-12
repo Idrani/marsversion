@@ -5,6 +5,7 @@ import Menu from './components/Menu';
 import { Route,Switch } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Login from './components/Login';
+
 import PO from './components/PO';
 import OF from './components/OF';
 import Head from './components/Head';
@@ -12,8 +13,14 @@ import Content from './components/Content';
 import Nav from './components/Nav';
 import Validation from './components/Validation';
 import Piece from './components/Piece';
+import Tasks from './components/Tasks';
+import Timer from './components/Timer';
+import { Side } from './components/side';
+import ProtectedRoutes from './components/ProtectedRoutes';
+
 
 function App() {
+  const a='adrani'
   return (
     
 <Router>
@@ -37,35 +44,42 @@ function App() {
     <Content/>
   </div>
 }  />
-          <Route  path="/login" component={Login}></Route>
+          <Route  path="/login" component={Login} ></Route>
+          <Route  path="/dashboard:id" component={Side}  ></Route>
+
           
-          <Route  path="/dashboard" render={props =>
-  <div>
-    <Nav/>
-   <Sidebar {...props}/>
+    
+         
+  {/* // <div>
    
-   <Route exact path="/dashboard" component={Menu}/>
+  //  <Side {...props}/>
+   
+  //  <Route exact path="/dashboard" component={Menu}/>
     
-    <Route exact path="/dashboard/PO" component={PO}/>
-    <Route  path="/dashboard/validate/:id" component={Validation}/>
-    {/* ay 7aja f  dashbord tetzed hne */}
+  //   <Route exact path="/dashboard/PO" component={PO}/>
+  //   <Route  path="/dashboard/validate/:id" component={Validation}/>
+  //   <Route path="/dashboard/tasks" component={Tasks}/>
+  //   <Route path="/dashboard/tasks/:id" component={Timer}/>
+  //   {/* ay 7aja f  dashbord tetzed hne */}
     
           
-  </div>
-}  />
+  {/* // </div> */} 
+  
+  
+
+
 
 <div>
-   <Nav/>
-   <Sidebar/>
-    <Route  path="/dashbord/PO/OF:id" component={OF}/>
-     <Route  path="/dashbord/PO/OF/piece:id" component={Piece}/>
+   
+<ProtectedRoutes/>
+    
+     
    
     </div> 
 
-    <div>
     
    
-    </div> 
+   
 
 
  

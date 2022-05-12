@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-export default function Menu() {
+export default function Menu(props) {
     const [po,setPo]=useState([   ])
      
     const [pieces,setPieces]=useState([])
     useEffect(()=>{
-       
+       console.log(props.name)
         getData()
         getPieces()
      },[])
