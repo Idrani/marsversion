@@ -17,6 +17,11 @@ import Tasks from './components/Tasks';
 import Timer from './components/Timer';
 import { Side } from './components/side';
 import ProtectedRoutes from './components/ProtectedRoutes';
+import Forgot from './components/Forgot';
+import Home from './components/Home';
+import About from './components/About';
+import Help from './components/Help';
+import Contact from './components/Contact';
 
 
 function App() {
@@ -41,10 +46,21 @@ function App() {
         <Route exact path="/" render={props =>
   <div>
    <Head/>
-    <Content/>
+   <Switch>
+     <Route  path="/" component={Content}/>
+        
+   </Switch>
+    
+   
   </div>
 }  />
+          <Route  path="/home" component={Home}/>
+          <Route  path="/about" component={About}/>
+          <Route  path="/help" component={Help}/>
+          <Route  path="/contact" component={Contact}/>
           <Route  path="/login" component={Login} ></Route>
+          <Route  path="/forgot" component={Forgot} ></Route>
+
           <Route  path="/dashboard:id" component={Side}  ></Route>
 
           

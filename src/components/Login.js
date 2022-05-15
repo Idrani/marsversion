@@ -63,6 +63,7 @@ if (auth) {
  return  <Redirect
              to={{
              pathname: `/dashboard${name}`,
+             
             
              
              
@@ -79,14 +80,15 @@ if (auth) {
     <div className='all'>
     <div className='bb  d-flex justify-content align-item '  >
     
+    
     <form onSubmit={ handleSubmit } className='box'  >
-
-                
+   
+    
 
                  <h1 >Login</h1>
                  
                  
-                 <input type="text"  placeholder = "Name" 
+                 <input type="text"  placeholder = "Name" minlength="7"
                      onChange = {e => setName(e.target.value)}
                  />
                  
@@ -111,8 +113,12 @@ if (auth) {
                  <p className="forgot-password text-right">
                    <Link to={'/forgot'}>Forgot password?</Link>
                  </p>
-  
-                 
+  <div>
+  <Link to={'/'}> <svg style={{color:'gold'}} xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+</svg></Link>
+  </div>
+               
               </form>
               
     </div>

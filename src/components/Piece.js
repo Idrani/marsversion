@@ -23,20 +23,20 @@ export default function Piece() {
   
     // pdf file error state
     const [pdfError, setPdfError]=useState('');
-    const formData = new FormData();
+    // const formData = new FormData();
   
     // handle file onChange event
     const allowedFiles = ['application/pdf'];
     const handleFile = (e) =>{
       
       let selectedFile = e.target.files[0];
-      formData.append(
-        "myFile",
+      // formData.append(
+      //   "myFile",
         
-        pdfFile,
-        pdfFile.name
-      );
-      // console.log(selectedFile.type);
+      //   pdfFile,
+      //   pdfFile.name
+      // );
+       console.log(selectedFile.type);
       if(selectedFile){
         if(selectedFile&&allowedFiles.includes(selectedFile.type)){
           let reader = new FileReader();
@@ -44,9 +44,9 @@ export default function Piece() {
           reader.onloadend=(e)=>{
             setPdfError('');
             setPdfFile(e.target.result);
-        axios.post("/Piéce/SaveFile", formData).then(console.log("success"));
+        // axios.post("/Piéce/SaveFile", formData).then(console.log("success"));
 
-            localStorage.setItem("inputValue", pdfFile);
+            
           }
         }
         else{
@@ -63,12 +63,7 @@ export default function Piece() {
 	
 	// Update the formData object
 	
-    useEffect(() => {
-      
-	
-      
-      setPdfFile(localStorage.getItem("inputValue"));
-    }, []);
+    
   return (
     <div className="container">
 

@@ -11,8 +11,12 @@ import { Side } from './side';
 
 
 export default function (props) {
+   
+
     const { id }=useParams()
     const [tablePieces,setTablePieces]=useState([   ])
+    const [count,setCount]=useState(0)
+    var c=0
     
     
 
@@ -23,8 +27,18 @@ export default function (props) {
         fetch('/List_OF_Pieces').then(resp=>resp.json())
         .then(resp=>resp.map((piece)=>{
              if(piece.NumOF==id){
+                
                 tablePieces.push(piece)
+                setCount(count+1)
               setTablePieces([...tablePieces])
+              
+              
+
+
+              
+              
+              
+              
               
              
              
@@ -32,11 +46,17 @@ export default function (props) {
             
           }
         }))
+       
     
     }
+   
+
 
    useEffect(()=>{
       getPieces()
+      
+      
+      
      
           
       
@@ -71,7 +91,7 @@ export default function (props) {
       
         <main >
                     <div className="container  text-black mt-5 " >
-                        <h1 className="mt-4">Numero  OF: {id}</h1>
+                        <h1 className="mt-4">Numero {tablePieces.length} OF: {id}</h1>
                         <ol className="breadcrumb mb-4">
                             <li className="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                             <li className="breadcrumb-item active"><a href="/dashboard/PO">PO</a></li>
@@ -159,7 +179,7 @@ export default function (props) {
                      
 <div style={{marginTop:'500px',marginLeft:'45%'}}>
 <Link to={{
-    pathname:`/dashboard${props.name}/validate/${id}`, state:{stateparam: {id},table:{tablePieces}}
+    pathname:`/dashboard${props.name}/validate/${id}`, state:{stateparam: {id} }
 }}><MDBBtn rounded color='success' style={{height:'40px' ,width:'20%'}}  >
         Validate
       </MDBBtn></Link>

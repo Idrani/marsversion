@@ -4,17 +4,16 @@ import { useState ,useEffect} from 'react'
 
 export const Valide = () => {
     const [tableValid,setTableValid]=useState([   ])
+    let a
+    const b='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+    const [icon,setIcon]=useState()
+    
+
    
     const getData=()=>{
         fetch('/validationOF').then(resp=>resp.json())
-        .then(resp=>resp.map((of)=>{
-            if(of.NumV===5){
-               tableValid.push(of)
-             setTableValid([...tableValid])
-           
-         }
-         
-       }))
+        .then(resp=>setTableValid(resp))
+        
        .then(console.log(tableValid))
     
     }
@@ -27,6 +26,16 @@ export const Valide = () => {
 
         useEffect(()=>{
             getData()
+            tableValid.map((of)=>{
+              if(of.NumV===5){
+                
+             
+           }
+           else{
+             setIcon(a)
+           }
+           
+         })
             
          },[])
   return (
@@ -63,8 +72,9 @@ export const Valide = () => {
           </td>
           <td >
             {val.date5}
-            <svg style={{float:'right',color:'#9dff9d'}} xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+           
+            <svg id={val.NumOF} style={{float:'right',color:'#9dff9d'}} xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round" d={a} />
 </svg>
           </td>
           </tr>
@@ -80,7 +90,7 @@ export const Valide = () => {
     <h3 style={{textAlign:'right',color:'black'}}></h3>
   </div>
 </div>
-  )
+  
     </div>
   )
 }

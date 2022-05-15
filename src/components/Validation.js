@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 function Validation(props) {
 
 const {id}= useLocation().state.stateparam;
-const {taille}= useLocation().state.table;
+const {nom}=useLocation().state.stateparam;
+const [tablePieces,setTablePieces]=useState([   ])
 
 
 
@@ -83,28 +84,50 @@ const handelDate4 = () =>{
            
       }
     )
-    const [tableValid,setTableValid]=useState([   ])
-    const [lenght,setLenght]=useState()
+   
 
-    const getPiece=()=>{
-      fetch('/List_OF_Pieces').then(resp=>resp.json())
-      .then(resp=>resp.map((piece)=>{
-           if(piece.NumOF==id){
-              tableValid.push(piece)
-            setTableValid([...tableValid])
-            
-            if(tableValid.length==0){
-                
-              setDisable1(true)
-              
-            }
+    
            
-            
+    const getnum=()=>{
+      let isMounted = true;
+
+    fetch('/List_OF_Pieces', {
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+
+    }).then(resp=>resp.json())
+    .then(resp => {
+      if(isMounted ){
+        resp.map((piece)=>{
+          if(piece.NumOF==id){
+              
+             tablePieces.push(piece)
+           setTablePieces([...tablePieces])
+           
+           
+       }
+     })
+      } 
+    })
+    
+    // .then(resp=>resp.map((piece)=>{
+    //      if(piece.NumOF==id){
+             
+    //         tablePieces.push(piece)
+    //       setTablePieces([...tablePieces])
           
-        }
-      }))
+    //   }
+    // }))
+    // if(tablePieces.length==0){
+    //   document.getElementById('v11').disabled = true;
+    // }
+    
   
-  };
+  }
+          
+      
     
     const getPieces=()=>{
       fetch('/validationOF').then(resp=>resp.json())
@@ -152,6 +175,8 @@ const handelDate4 = () =>{
           
          }
        }))
+
+       
       
   
   }
@@ -160,11 +185,20 @@ const handelDate4 = () =>{
 
 
     useEffect(() => {
-      getPiece();
+      
+    getPieces();
+  
+
+   
+      
+     
+      
+      
+
       
       
      
-     
+  
               
              
              
@@ -506,7 +540,7 @@ const handelDate4 = () =>{
   
    
     <div class="container my-5" >
-        <h1 className="mt-4 text-black">Production Orders  Validation {id}</h1>
+        <h1 className="mt-4 text-black">Production Orders   Validation {id}</h1>
         <ol className="breadcrumb mb-4">
                             <li className="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                             <li className="breadcrumb-item active"><a href="/dashboard/PO">PO</a></li>
@@ -539,7 +573,7 @@ const handelDate4 = () =>{
             
           </td>
           <td>
-          <MDBBtn rounded className='mx-2' color='success'  onClick={() => {
+          <MDBBtn  id='v11' rounded className='mx-2' color='success'  onClick={() => {
           handelDate();
           if(disnum==0){
             sendEmail1();

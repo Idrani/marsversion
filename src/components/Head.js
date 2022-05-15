@@ -3,6 +3,10 @@ import {Navbar,Container,NavDropdown,Nav} from 'react-bootstrap';
 import { CgMenuMotion } from 'react-icons/cg';
 import logo from './logo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link, Route, Switch } from "react-router-dom";
+import Home from "./Home";
+import Content from "./Content";
+import { Router } from "react-router-dom";
 
 
 function MouseOver(event) {
@@ -16,6 +20,9 @@ function MouseOn(event) {
 
 const Head = () => {
     return ( 
+      <div >
+        
+     <>
          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark"  className="color-nav">
          <Container>
          <Navbar.Brand href="/"><img src={logo } width="150px" /></Navbar.Brand>
@@ -28,15 +35,22 @@ const Head = () => {
             
            </Nav>
            <Nav    >
-             <Nav.Link exact to="/" onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh"  >Home</Nav.Link>
-             <Nav.Link onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh" href="#">About</Nav.Link>
-             <Nav.Link onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh" href="#"> Help</Nav.Link>
-             <Nav.Link onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh" href="#"> Contact</Nav.Link>
+             <Nav.Link as={Link} to="/home" onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh"  >Home</Nav.Link>
+             <Nav.Link as={Link} to="/about" onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh" href="#">About</Nav.Link>
+             <Nav.Link as={Link} to="/help" onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh" href="#"> Help</Nav.Link>
+             <Nav.Link as={Link} to="/contact" onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh" href="#"> Contact</Nav.Link>
            </Nav>
          </Navbar.Collapse>
          </Container>
        </Navbar>
-       
+       </>
+       <div>
+         
+        
+         
+       </div>
+      
+       </div>
       
       
      );

@@ -34,7 +34,7 @@ export default function PO(props) {
       }
     
    const [tableData,setTableData]=useState([   ])
-   
+   const {nom}=props.name;
    
    const getData=()=>{
     fetch('/PO_followUP').then(resp=>resp.json())
@@ -45,8 +45,8 @@ export default function PO(props) {
    }
    useEffect(()=>{
    
-      console.log(props.name)
-       
+      
+       console.log(props.name)
     
     getData()
     
@@ -99,7 +99,15 @@ export default function PO(props) {
                                         method:"POST",
                                         headers:{'Content-type':"application/json"},
                                         
-                                        body:JSON.stringify(newData)
+                                        body:JSON.stringify(
+                                          {
+                                            "RefPr": newData.RefPr,
+                                            "NomPr": newData.NomPr,
+                                            "StatutPr": props.name,
+                                            "NumOF": newData.NumOF,
+                                            "Priorité":newData.Priorité
+                                           }
+                                        )
                                     }).then(resp=>resp.json())
                                     .then(resp=>console.log("hii",resp))
                                     resolve()

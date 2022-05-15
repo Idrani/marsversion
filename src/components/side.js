@@ -17,10 +17,12 @@ import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import ProtectedRoutes from './ProtectedRoutes';
 import { useParams } from 'react-router-dom';
+import avatar from './avatar.jpeg'
 
 
 export const Side = (props) => {
    const { id } = useParams();
+
   
     const [open, setOpen] = useState(true);
     const Menus = [
@@ -37,6 +39,7 @@ export const Side = (props) => {
     useEffect(()=>{
       console.log(id)
       
+      
     },[])
    
     
@@ -44,7 +47,7 @@ export const Side = (props) => {
   return (
     <div className="flex">
 
-    <div style={{backgroundColor:'#1B3449'}}
+    <div style={{backgroundColor:'#1B3449',height:'auto',display:'table-cell'}}
       className={` ${
         open ? "w-72" : "w-20 "
       }  h-screen   pt-8 relative duration-300`}
@@ -72,7 +75,7 @@ export const Side = (props) => {
       </div> </a>
       <ul className="pt-6" >
        
-      <Link  to={`/dashboard${id}/menu`}>   <li style={{fontSize:'x-large',marginLeft:'-25px',width:'95%'}}
+      <Link  to={`/dashboard${id}`}>   <li style={{fontSize:'x-large',marginLeft:'-25px',width:'95%'}}
             
             className={`flex  rounded-md p-2 mt-5 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4
              `}
@@ -141,15 +144,36 @@ export const Side = (props) => {
             Logout
             </span>
           </li> </Link>
+
+            <li style={{fontSize:'x-large',marginLeft:'-25px',width:'95%'}}
+            
+            className={`flex  rounded-md p-2 mt-5 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4
+             `}
+             
+          >
+        <div className='pic' style={{float:'left'}}>
+          <img src={avatar}/>
+        </div>
+            <span className={`${!open && "hidden"} origin-left duration-200 ` } style={{color:'#79C743'}} >
+           {id}
+            </span>
+          </li> 
          
       </ul>
-      <h5 >Loged In as {id}</h5>
+      {/* <div style={{height:'200px',marginTop:'50px',marginLeft:'100px'}}>
+        <div className='pic' style={{float:'left'}}>
+          <img src={avatar}/>
+        </div>
+        <div style={{height:'100px',width:'80%',float:'left',marginLeft:'-20px'}}>
+      <p style={{marginTop:'25%',color:'#fff',fontSize:'22px'}} > - {id} -</p>
+      </div>
+      </div> */}
     </div>
     <div className="h-screen flex-1 ">
     
     <Switch>
     
-    <Route exact path="/dashboard:id/menu"> <Menu name={id}/> </Route>
+    <Route exact path="/dashboard:id"> <Menu name={id}/> </Route> 
     {/* <ProtectedRoutes path="/dashboard" component={Menu} auth={true}/> */}
     <Route exact path="/dashboard:id/PO"> <PO name={id}/></Route>
     <Route  path="/dashboard:id/PO/OF:id"> <OF name={id} /></Route> 

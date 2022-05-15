@@ -40,7 +40,9 @@ export default function Menu(props) {
                         <div class="row">
                             <div class="col-xl-4 col-md-6">
                                 <div class="card  text-black mb-4 " style={{backgroundColor:'#212529',borderRadius:''}} >
+                                    
                                     <div class="card-body"><h3>Users</h3></div>
+                                    
                                     <h1 style={{textAlign:'center'}}>{pieces}</h1>
                                 </div>
                             </div>
