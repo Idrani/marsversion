@@ -121,13 +121,13 @@ const Contact = () => {
   </div> 
  
  
-</div>
+</div >
  {/* -------------- */}
 
 
-   <Link to={'/'}> <a style={{marginBottom:'140px',marginTop:'50px'}}  class="btn btn-warning">Back</a></Link>
+   
   </div>
-</div>
+</div >
 
       </div>
     </div>

@@ -12,9 +12,10 @@ import ProtectedRoutes from './ProtectedRoutes';
 
 
 
+
 toast.configure()
 const Login = () =>{
-  const [auth,setAuth]=useState();
+  const [auth,setAuth]=useState(false);
   const [email,setEmail]=useState();
   const [password,setPassword]=useState();
   const [name,setName]=useState();
@@ -71,6 +72,7 @@ if (auth) {
           
          />
         }
+       
     
      
 
@@ -80,7 +82,7 @@ if (auth) {
     <div className='all'>
     <div className='bb  d-flex justify-content align-item '  >
     
-    
+    <img src='marsversion/src/logiiin.jpg'/>
     <form onSubmit={ handleSubmit } className='box'  >
    
     

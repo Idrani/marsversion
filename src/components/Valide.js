@@ -1,20 +1,34 @@
 import React from 'react'
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { useState ,useEffect} from 'react'
+import { Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom'
+import {toast} from 'react-toastify';
 
-export const Valide = () => {
+export const Valide = (props) => {
     const [tableValid,setTableValid]=useState([   ])
     let a
     const b='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
     const [icon,setIcon]=useState()
+    const [priorité,setPriorité]=useState();
+    const { id }=useParams()
+
     
 
    
     const getData=()=>{
         fetch('/validationOF').then(resp=>resp.json())
-        .then(resp=>setTableValid(resp))
+        .then(resp=>resp.map((piece)=>{
+          if(piece.valide==1){
+             
+             tableValid.push(piece)
+             
+           setTableValid([...tableValid])
         
-       .then(console.log(tableValid))
+       }
+     }))
+        
+       
     
     }
     
@@ -36,6 +50,8 @@ export const Valide = () => {
            }
            
          })
+         
+         
             
          },[])
   return (
@@ -43,8 +59,8 @@ export const Valide = () => {
         <div class="container my-5" >
         <h1 className="mt-4 text-black">List of Validated Production Orders   </h1>
         <ol className="breadcrumb mb-4">
-                            <li className="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                            <li className="breadcrumb-item active"><a href="/dashboard/PO">PO</a></li>
+                            
+                            <li className="breadcrumb-item active"><a href={`/dashboard${props.name}/PO`}>PO</a></li>
                            
                         </ol>
   <div class="shadow-4 rounded-5 overflow-hidden" style={{marginTop:'100px'}}>
@@ -55,6 +71,10 @@ export const Valide = () => {
          <th>Index</th>
           <th>PO Number</th>
           <th>Validation Date</th>
+          <th>Priority</th>
+          <th>Set Priority</th>
+
+
           
         </tr>
       </thead>
@@ -73,10 +93,35 @@ export const Valide = () => {
           <td >
             {val.date5}
            
-            <svg id={val.NumOF} style={{float:'right',color:'#9dff9d'}} xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round" d={a} />
-</svg>
+           
           </td>
+          <td>{val.pri}</td>
+          <td><input id='val.NUmOF' value={val.Priorité} style={{border:'2px solid black',padding:'12px',width:'50px',height:'30px'}} onChange = {e => setPriorité(e.target.value)}  /> <Button style={{height:'30px'}} onClick={(e) => { if(id=='aminedaami'){fetch('/validationOF',{
+          method:"PATCH",
+          headers:{'Content-type':"application/json"},
+          body:JSON.stringify(
+            {
+              
+              "NumOF": val.NumOF,
+              "NumV": val.NumV,
+              "valide": val.valide,
+              "date1": val.date1,
+              "date2": val.date2,
+              "date3": val.date3,
+              "date4": val.date4,
+              "date5": val.date5,
+              "pri": priorité
+            }
+          )})}
+          else{
+            toast.error("only Mr amine daami has access", {
+              theme: "dark",position: toast.POSITION.TOP_CENTER
+            })
+          }
+          }}>set</Button> 
+          <svg style={{float:'right',color:'#9dff9d'}} xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg></td>
           </tr>
 
       ))}

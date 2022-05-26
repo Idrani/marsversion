@@ -1,7 +1,7 @@
 import React from "react";
 import {Navbar,Container,NavDropdown,Nav} from 'react-bootstrap';
 import { CgMenuMotion } from 'react-icons/cg';
-import logo from './logo.png';
+import logo from './logoo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, Route, Switch } from "react-router-dom";
 import Home from "./Home";
@@ -35,7 +35,7 @@ const Head = () => {
             
            </Nav>
            <Nav    >
-             <Nav.Link as={Link} to="/home" onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh"  >Home</Nav.Link>
+             <Nav.Link as={Link} to="/" onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh"  >Home</Nav.Link>
              <Nav.Link as={Link} to="/about" onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh" href="#">About</Nav.Link>
              <Nav.Link as={Link} to="/help" onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh" href="#"> Help</Nav.Link>
              <Nav.Link as={Link} to="/contact" onMouseOver={MouseOn}  onMouseOut={MouseOver} className="forh" href="#"> Contact</Nav.Link>

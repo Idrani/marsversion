@@ -4,12 +4,18 @@ import { useState,useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
+import {toast} from 'react-toastify';
 
 function Validation(props) {
 
 const {id}= useLocation().state.stateparam;
-const {nom}=useLocation().state.stateparam;
+const [name,setName]=useState([   ])
+
 const [tablePieces,setTablePieces]=useState([   ])
+const [email,setEmail]=useState([   ])
+
+
 
 
 
@@ -70,6 +76,8 @@ const handelDate4 = () =>{
     const [disable3,setDisable3]=useState(true)
     const [disable4,setDisable4]=useState(true)
     const [disable5,setDisable5]=useState(true)
+    const [disable6,setDisable6]=useState(false)
+
     const [disnum,setDisnum]=useState(0)
     const [etat,setEtat]=useState(
        {
@@ -84,7 +92,64 @@ const handelDate4 = () =>{
            
       }
     )
+    // -----------Invalidate Email-----------
+    const handleClickk=()=>{
+     
+      
+      fetch('/PO_followUP').then(resp=>resp.json()).then(resp => {
+      
+          resp.map((po)=>{
+            if(po.NumOF==id){
+                
+               
+             
+             
+             fetch('/api/getusers').then(resp=>resp.json())
+             .then(resp=>resp.map((user)=>{
+              
+              if(user.name==po.StatutPr){
+                  // setEmail(user.email)
+                  // setName(user.name)
+                const templateParams = {
+                  name: user.name,
+                  notes: id,
+                  email: user.email
+              };
+              console.log(templateParams)
+              emailjs.send('service_djw7h7l', 'template_bn2t3sm', templateParams,'PSMOy6FSz8kA1SiPu')
+              .then(function(response) {
+                 console.log('SUCCESS!', response.status, response.text);
+              }, function(error) {
+                 console.log('FAILED...', error);
+                 notify()
+              }); 
+               
+              const notify=()=>{
+                toast.error("Please Verify Your Data", {
+                  theme: "dark",position: toast.POSITION.TOP_CENTER
+                })}
+                
+                
+                
+               
+               
+               
+           }
+         })
+              )
+              // window.location.reload(false);
+             
+             
+             
+             
+         }
+       })
+        
+      })
    
+      
+     }
+  //  -----------------------
 
     
            
@@ -132,6 +197,7 @@ const handelDate4 = () =>{
     const getPieces=()=>{
       fetch('/validationOF').then(resp=>resp.json())
       
+      
        .then(resp=>resp.map((val)=>{
 
             if(val.NumOF==id){
@@ -175,6 +241,7 @@ const handelDate4 = () =>{
           
          }
        }))
+       
 
        
       
@@ -266,6 +333,7 @@ const handelDate4 = () =>{
       setDisable3(true)
       setDisable4(true)
       setDisable5(true)
+      setDisable6(true)
        document.getElementById('v1').style.backgroundColor="#9dff9d"
        document.getElementById('v2').style.backgroundColor="#9dff9d"
        document.getElementById('v3').style.backgroundColor="#9dff9d"
@@ -282,29 +350,24 @@ const handelDate4 = () =>{
    
     var templateParams1 = {
         name: 'aymen',
-        notes: 'Check the app http://192.168.1.91:3000/ ',
         email: 'aymeenlassoued@gmail.com'
     };
     var templateParams2 = {
-        name: 'adrani',
-        notes: 'Check the app http://192.168.1.91:3000/',
-        email: 'idranimohamed2@gmail.com'
+        name: 'Khalil',
+        
+        email: 'k.zaffati@samm-automation.com'
     };
     var templateParams3 = {
-        name: 'hamrouni',
-        notes: 'Check the app http://192.168.1.91:3000/',
-        email: 'mhamrouni270@gmail.com'
+        name: 'Amine',
+        
+        email: 'a.daami@samm-automation.com'
     };
     var templateParams4 = {
-        name: 'moatez',
-        notes: 'Check the app http://192.168.1.91:3000/',
-        email: 'Boukamchamoatez@gmail.com'
+        name: 'Chef Atelier',
+       
+        email: 'a.jemi@samm-automation.com'
     };
-    var templateParams = {
-        name: 'aymen',
-        notes: 'Check the app http://192.168.1.91:3000/',
-        email: 'aymeenlassoued@gmail.com'
-    };
+    
 
      
     function sendEmail1(e){
@@ -332,12 +395,12 @@ const handelDate4 = () =>{
            
              
               
-            //  emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams1,'PSMOy6FSz8kA1SiPu')
-            //  .then(function(response) {
-            //     console.log('SUCCESS!', response.status, response.text);
-            //  }, function(error) {
-            //     console.log('FAILED...', error);
-            //  }); 
+              emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams1,'PSMOy6FSz8kA1SiPu')
+              .then(function(response) {
+                 console.log('SUCCESS!', response.status, response.text);
+              }, function(error) {
+                 console.log('FAILED...', error);
+              }); 
             document.getElementById('v1').style.backgroundColor="#9dff9d"
             
              
@@ -399,12 +462,12 @@ const handelDate4 = () =>{
               .then(resp=>{setEtat(resp) })
                     
                     console.log(disnum)
-                    //  emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams2,'PSMOy6FSz8kA1SiPu')
-                    //  .then(function(response) {
-                    //     console.log('SUCCESS!', response.status, response.text);
-                    //  }, function(error) {
-                    //     console.log('FAILED...', error);
-                    //  }); 
+                      emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams2,'PSMOy6FSz8kA1SiPu')
+                      .then(function(response) {
+                         console.log('SUCCESS!', response.status, response.text);
+                      }, function(error) {
+                         console.log('FAILED...', error);
+                      }); 
                     document.getElementById('v2').style.backgroundColor="#9dff9d"
                  
                 }
@@ -441,12 +504,12 @@ const handelDate4 = () =>{
               .then(resp=>{setEtat(resp) })
                    
                    console.log(disnum)
-                    // emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams3,'PSMOy6FSz8kA1SiPu')
-                    // .then(function(response) {
-                    //    console.log('SUCCESS!', response.status, response.text);
-                    // }, function(error) {
-                    //    console.log('FAILED...', error);
-                    // }); 
+                     emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams3,'PSMOy6FSz8kA1SiPu')
+                     .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                     }, function(error) {
+                        console.log('FAILED...', error);
+                     }); 
                 document.getElementById('v3').style.backgroundColor="#9dff9d"
                 
                }
@@ -483,12 +546,12 @@ const handelDate4 = () =>{
               .then(resp=>{setEtat(resp) })
                    
                    console.log(disnum)
-                //    emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams4,'PSMOy6FSz8kA1SiPu')
-                //    .then(function(response) {
-                //       console.log('SUCCESS!', response.status, response.text);
-                //    }, function(error) {
-                //       console.log('FAILED...', error);
-                //    }); 
+                    emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams4,'PSMOy6FSz8kA1SiPu')
+                    .then(function(response) {
+                       console.log('SUCCESS!', response.status, response.text);
+                    }, function(error) {
+                       console.log('FAILED...', error);
+                    }); 
                 document.getElementById('v4').style.backgroundColor="#9dff9d"
                 
                }
@@ -524,12 +587,12 @@ const handelDate4 = () =>{
                     })
                 }).then(resp=>resp.json())
                 .then(resp=>{setEtat(resp) })
-                //    emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams,'PSMOy6FSz8kA1SiPu')
-                //    .then(function(response) {
-                //       console.log('SUCCESS!', response.status, response.text);
-                //    }, function(error) {
-                //       console.log('FAILED...', error);
-                //    }); 
+                    // emailjs.send('service_djw7h7l', 'template_u70xzxi', templateParams,'PSMOy6FSz8kA1SiPu')
+                    // .then(function(response) {
+                    //    console.log('SUCCESS!', response.status, response.text);
+                    // }, function(error) {
+                    //    console.log('FAILED...', error);
+                    // }); 
                 document.getElementById('v5').style.backgroundColor="#9dff9d"
                 
                }
@@ -582,12 +645,7 @@ const handelDate4 = () =>{
         }}  disabled={disable1}>
         Validate
       </MDBBtn>
-      <MDBBtn   onClick={() => {
-          document.getElementById('v1').style.backgroundColor="#FA5F55"
-          
-        }}  rounded className='mx-2' color='danger' >
-        Invalidate
-      </MDBBtn>
+      
           </td>
           <td><h5>{cdate}</h5>
           </td>
@@ -619,12 +677,7 @@ const handelDate4 = () =>{
         }}  disabled={disable2}>
         Validate
       </MDBBtn>
-      <MDBBtn onClick={() => {
-          document.getElementById('v2').style.backgroundColor="#FA5F55"
-          
-        }} rounded className='mx-2' color='danger'>
-        Invalidate
-      </MDBBtn>
+      
           </td>
           <td><h5>{cdate1}</h5>
           </td>
@@ -654,12 +707,7 @@ const handelDate4 = () =>{
         }}  disabled={disable3}>
         Validate
       </MDBBtn>
-      <MDBBtn rounded className='mx-2' color='danger' onClick={() => {
-          document.getElementById('v3').style.backgroundColor="#FA5F55"
-          
-        }}>
-        Invalidate
-      </MDBBtn>
+      
           </td>
           <td><h5>{cdate2}</h5>
           </td>
@@ -691,12 +739,7 @@ const handelDate4 = () =>{
         }}  disabled={disable4}>
         Validate
       </MDBBtn>
-      <MDBBtn rounded className='mx-2' color='danger' onClick={() => {
-          document.getElementById('v4').style.backgroundColor="#FA5F55"
-          
-        }}>
-        Invalidate
-      </MDBBtn>
+      
           </td>
           <td><h5>{cdate3}</h5>
           </td>
@@ -728,12 +771,7 @@ const handelDate4 = () =>{
         }}  disabled={disable5} >
         Validate
       </MDBBtn>
-      <MDBBtn rounded className='mx-2' color='danger' onClick={() => {
-          document.getElementById('v5').style.backgroundColor="#FA5F55"
-          
-        }}>
-        Invalidate
-      </MDBBtn>
+      
           </td>
           <td><h5>{cdate4}</h5>
           </td>
@@ -742,6 +780,28 @@ const handelDate4 = () =>{
 
     </table>
     <h3 style={{textAlign:'right',color:'black'}}>{disnum}/5</h3>
+  </div>
+  <div style={{height:'100px',paddingLeft:'45%',paddingTop:'30px'}}>
+  <MDBBtn rounded className='mx-2' color='danger' onClick={()=>{
+     fetch('/validationOF/' + id ,{
+      method:"PUT",
+      headers:{'Content-type':"application/json"},
+      body:JSON.stringify({
+        "NumOF": id,
+        "NumV": 0,
+        "valide": 0,
+        "date1": "2022-04-12",
+       "date2": "2022-04-12",
+       "date3": "2022-04-12",
+        "date4": "2022-04-12",
+       "date5": "2022-04-12"
+       })
+  })
+  handleClickk();
+  
+  }} disabled={disable6}>
+        Invalidate
+      </MDBBtn>
   </div>
 </div>
   )

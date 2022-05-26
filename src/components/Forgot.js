@@ -9,21 +9,13 @@ export default function Forgot() {
     const [email,setEmail]=useState();
     const [password,setPassword]=useState();
 
-    const templateParams = {
-        name: 'aymen',
-        notes: password,
-        email: email
-    };
+  
 
 
     const handleSubmit = e => {
         e.preventDefault();
     
-        const data = {
-            email:  email,
-            
-            
-        };
+        
 
         let result = '';
     let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -32,8 +24,14 @@ export default function Forgot() {
       result += characters.charAt(Math.floor(Math.random() * 
  charactersLength));
    }
-   setPassword(result)
-   console.log(templateParams)
+   const data = {
+    email:  email,
+    notes: result,
+    
+    
+};
+   
+   console.log(data)
    
 
    
@@ -56,19 +54,19 @@ export default function Forgot() {
     //     notify()
     //     console.log(err)
     //   })
-        emailjs.send('service_djw7h7l', 'template_bn2t3sm', templateParams,'PSMOy6FSz8kA1SiPu')
-              .then(function(response) {
-                 console.log('SUCCESS!', response.status, response.text);
-              }, function(error) {
-                 console.log('FAILED...', error);
-                 notify()
-              }); 
+        // emailjs.send('service_djw7h7l', 'template_bn2t3sm', data,'PSMOy6FSz8kA1SiPu')
+        //       .then(function(response) {
+        //          console.log('SUCCESS!', response.status, response.text);
+        //       }, function(error) {
+        //          console.log('FAILED...', error);
+        //          notify()
+        //       }); 
     
      };
-     const notify=()=>{
-      toast.error("Please Verify Your Data", {
-        theme: "dark",position: toast.POSITION.TOP_CENTER
-      })}
+    //  const notify=()=>{
+    //   toast.error("Please Verify Your Data", {
+    //     theme: "dark",position: toast.POSITION.TOP_CENTER
+    //   })}
 
     
     

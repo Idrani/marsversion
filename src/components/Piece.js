@@ -1,5 +1,6 @@
 import {useState,useEffect} from 'react'
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 // Import Worker
 import { Worker } from '@react-pdf-viewer/core';
@@ -13,8 +14,18 @@ import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 
-export default function Piece() {
 
+
+
+export default function Piece() {
+  const [disable,setDisable]=useState(false)
+  const [tableValid,setTableValid]=useState([   ])
+  const [num,setNum]=useState(false)
+  
+ 
+  const { id }=useParams()
+  
+ 
   
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
@@ -27,6 +38,27 @@ export default function Piece() {
   
     // handle file onChange event
     const allowedFiles = ['application/pdf'];
+
+
+    useEffect(() => {
+     
+      
+      const one = String(id).slice(0, 7);
+      setNum(Number(one))
+       fetch('/validationOF').then(resp=>resp.json())
+       .then(resp=>resp.map((piece)=>{
+         if(piece.NumOF==num){
+             if(piece.valide==1){
+                 setDisable(true)
+                
+                
+             }
+    
+      }
+    }))
+    
+
+    })
     const handleFile = (e) =>{
       
       let selectedFile = e.target.files[0];
@@ -37,6 +69,7 @@ export default function Piece() {
       //   pdfFile.name
       // );
        console.log(selectedFile.type);
+       
       if(selectedFile){
         if(selectedFile&&allowedFiles.includes(selectedFile.type)){
           let reader = new FileReader();
@@ -73,7 +106,7 @@ export default function Piece() {
       <label><h5>Upload PDF</h5></label>
       <br></br>
 
-      <input type='file' className="form-control"
+      <input disabled={disable} type='file' className="form-control"
       onChange={handleFile}></input>
 
       {/* we will display error message in case user select some file
@@ -88,9 +121,10 @@ export default function Piece() {
 
       {/* render this if we have a pdf file */}
       {pdfFile&&(
-        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js">
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.13.216/build/pdf.worker.min.js">
           <Viewer fileUrl={pdfFile}
-          plugins={[defaultLayoutPluginInstance]}></Viewer>
+        
+           ></Viewer>
         </Worker>
       )}
 

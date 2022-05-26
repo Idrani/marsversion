@@ -34,12 +34,17 @@ export default function PO(props) {
       }
     
    const [tableData,setTableData]=useState([   ])
+   
+
+
    const {nom}=props.name;
    
+
+
    const getData=()=>{
     fetch('/PO_followUP').then(resp=>resp.json())
     .then(resp=>setTableData(resp))
-    .then(console.log("here",tableData))
+    
     
     
    }
@@ -47,7 +52,7 @@ export default function PO(props) {
    
       
        console.log(props.name)
-    
+   
     getData()
     
  },[])
@@ -71,7 +76,19 @@ export default function PO(props) {
         return "Required"
     }
   }},{title:"Demandeur",field:"StatutPr",width:70},
-   {title:"Priorité",field:"Priorité",width:70}]
+   {title:"Conformité_NC",field:"Priorité",width:70},
+   {title:"Avancement",field:"Avancement",width:70},
+   {title:"Conformité_C",field:"State",width:70},
+   
+   
+
+   {title:"Tasks List",width:70,render:rowData=><Link href={`/dashboard${props.name}/tasks/${rowData.NumOF}`} >Tasks List</Link>}
+
+
+
+
+  ]
+
    
   return (
     
@@ -79,9 +96,9 @@ export default function PO(props) {
     <div>
         <main >
                     <div className="container  text-black ">
-                        <h1 className="mt-4">Production Orders List</h1>
+                        <h1 className="mt-4">Production Orders List </h1>
                         <ol className="breadcrumb mb-4">
-                            <li className="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                            
                             <li className="breadcrumb-item active">PO</li>
                         </ol>
                         <div className="card mb-4">
@@ -94,6 +111,7 @@ export default function PO(props) {
                             
                             <MaterialTable columns={columns} data={tableData} 
                             editable={{
+                              // isEditHidden:(row)=>row.
                                 onRowAdd:(newData)=>new Promise((resolve,reject)=>{
                                     fetch('/PO_followUP',{
                                         method:"POST",
@@ -131,6 +149,7 @@ export default function PO(props) {
                                         )
                                     })
                                     
+                                    
                                     resolve()
 
                                     window.location.reload(false);
@@ -155,6 +174,7 @@ export default function PO(props) {
                                 })
                                 
                             }}
+                            
                             options={{
                                 rowStyle:(data,index)=>index%2==0?{background:"#f5f5f5"}:null,
                                 columnStyle:{width:'50px'},

@@ -102,19 +102,7 @@ export const Side = (props) => {
             PO FOLLOW UP
             </span>
           </li> </Link>
-          <Link  to={`/dashboard${id}/tasks`}> <li
-          style={{fontSize:'x-large',marginLeft:'-25px',width:'95%'}}
-            
-          className={`flex  rounded-md p-2 mt-5 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-          `}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-<path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-</svg>
-            <span className={`${!open && "hidden"} origin-left duration-200`}>
-            TASKS LIST
-            </span>
-          </li></Link>
+        
           <Link  to={`/dashboard${id}/Valid`}>   <li style={{fontSize:'x-large',marginLeft:'-25px',width:'95%'}}
             
             className={`flex  rounded-md p-2 mt-5 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4
@@ -154,7 +142,7 @@ export const Side = (props) => {
         <div className='pic' style={{float:'left'}}>
           <img src={avatar}/>
         </div>
-            <span className={`${!open && "hidden"} origin-left duration-200 ` } style={{color:'#79C743'}} >
+            <span className={`${!open && "hidden"} origin-left duration-200 ` } style={{color:'#fff',fontFamily:'Brush Script MT'}} >
            {id}
             </span>
           </li> 
@@ -178,7 +166,7 @@ export const Side = (props) => {
     <Route exact path="/dashboard:id/PO"> <PO name={id}/></Route>
     <Route  path="/dashboard:id/PO/OF:id"> <OF name={id} /></Route> 
     <Route  path="/dashboard:id/PO/OF/piece:id"> <Piece name={id}/></Route>
-    <Route path="/dashboard:id/tasks"> <Tasks name={id}/></Route>
+    <Route path="/dashboard:id/tasks/:id"> <Tasks name={id}/></Route>
     <Route  path="/dashboard:id/validate/:id"><Validation name={id}/></Route> 
     <Route  path="/dashboard:id/valid" ><Valide name={id}/></Route>
 
