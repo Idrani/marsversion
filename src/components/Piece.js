@@ -216,7 +216,7 @@ axios.post("https://api.cloudinary.com/v1_1/dzvvt9nip/upload",form)
           
         }} >send</Button></div>
 
-        <a style={{marginLeft:'100px',color:'green'}} href={url}><h3>url</h3></a>
+        {/* <a style={{marginLeft:'100px',color:'green'}} href={url}><h3>url</h3></a> */}
 
 </div>
     <div>
@@ -226,7 +226,11 @@ axios.post("https://api.cloudinary.com/v1_1/dzvvt9nip/upload",form)
       {url&&(
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.13.216/build/pdf.worker.min.js">
           <Viewer fileUrl={url}
-        
+            plugins={[
+              // Register plugins
+              defaultLayoutPluginInstance,
+              
+          ]}
            ></Viewer>
         </Worker>
       )}

@@ -98,7 +98,7 @@ export const Valide = (props) => {
            
           </td>
           <td>{val.pri}</td>
-          <td><input id='val.NUmOF' value={val.Priorité} style={{border:'2px solid black',padding:'12px',width:'50px',height:'30px'}} onChange = {e => setPriorité(e.target.value)}  /> <Button style={{height:'30px'}} onClick={(e) => { if(id=='adranimed'){fetch('/validationOF',{
+          <td><input id='val.NUmOF' value={val.Priorité} style={{border:'2px solid black',padding:'12px',width:'50px',height:'30px'}} onChange = {e => setPriorité(e.target.value)}  /> <Button style={{height:'30px'}} onClick={(e) => { if(id=='amine daami'){fetch('/validationOF',{
           method:"PATCH",
           headers:{'Content-type':"application/json"},
           body:JSON.stringify(
@@ -114,7 +114,8 @@ export const Valide = (props) => {
               "date5": val.date5,
               "pri": priorité
             }
-          )})}
+          )})
+          window.location.reload(false);}
           else{
             toast.error("only Mr amine daami has access", {
               theme: "dark",position: toast.POSITION.TOP_CENTER
