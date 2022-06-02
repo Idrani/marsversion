@@ -87,7 +87,7 @@ if (auth) {
    
     
 
-                 <h1 >Login</h1>
+                 <h1 style={{marginLeft:'25px'}}>Login</h1>
                  
                  
                  <input type="text"  placeholder = "Name" minlength="7"
@@ -110,7 +110,7 @@ if (auth) {
                  />
                 
                   
-                <button className="btm   "   >Login</button>
+                <button className="btm">Login</button>
                  
                  <p className="forgot-password text-right">
                    <Link to={'/forgot'}>Forgot password?</Link>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Router, Switch } from 'react-router-dom';
 import logo from './logo.png';
 import logoo from './logoC.png';
-import login from './login.gif'
+import login from './login.gif';
 import Menu from './Menu';
 import { Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -142,8 +142,8 @@ export const Side = (props) => {
         <div className='pic' style={{float:'left'}}>
           <img src={avatar}/>
         </div>
-            <span className={`${!open && "hidden"} origin-left duration-200 ` } style={{color:'#fff',fontFamily:'Brush Script MT'}} >
-           {id}
+            <span className={`${!open && "hidden"} origin-left duration-200 ` } style={{color:'#fff',textTransform:'uppercase'}} >
+          <i>{id}</i> 
             </span>
           </li> 
          

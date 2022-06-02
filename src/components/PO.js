@@ -45,13 +45,11 @@ export default function PO(props) {
     fetch('/PO_followUP').then(resp=>resp.json())
     .then(resp=>setTableData(resp))
     
-    
-    
    }
    useEffect(()=>{
    
       
-       console.log(props.name)
+       
    
     getData()
     
@@ -67,18 +65,19 @@ export default function PO(props) {
     }
        
     return true
-   }},{title:"NomPr",field:"NomPr",width:90 },
-   {title:"NumOF",field:"NumOF",width:70 ,cellStyle: {
+   }},{title:"Project",field:"NomPr",width:90 },
+   {title:"PO_Num",field:"NumOF",width:70 ,cellStyle: {
     width: 50,
     maxWidth: 20
   },render:rowData=><Link href={`/dashboard${props.name}/PO/OF${rowData.NumOF}`} >{rowData.NumOF}</Link> ,validate:rowData=>{
     if(rowData.NumOF===undefined || rowData.NumOF==="" ){
         return "Required"
     }
-  }},{title:"Demandeur",field:"StatutPr",width:70},
-   {title:"Conformité_NC",field:"Priorité",width:70},
-   {title:"Avancement",field:"Avancement",width:70},
-   {title:"Conformité_C",field:"State",width:70},
+  }},{title:"Applicant",field:"StatutPr",width:70},
+  {title:"Deadline",field:"cloture",width:70},
+   {title:"Conformity_NC",field:"State",width:70},
+   {title:"Advancement%",field:"Avancement",width:70},
+   {title:"Conformity_C",field:"Priorité",width:70},
    
    
 
@@ -96,20 +95,18 @@ export default function PO(props) {
     <div>
         <main >
                     <div className="container  text-black ">
-                        <h1 className="mt-4">Production Orders List </h1>
-                        <ol className="breadcrumb mb-4">
+                    <div style={{borderBottom:'3px solid black'}}>
+                        <h1 className="mt-4">PO Follow UP</h1>
+                        </div>
+                        <ol className="breadcrumb mb-4" style={{marginTop:'5px'}}>
                             
                             <li className="breadcrumb-item active">PO</li>
                         </ol>
-                        <div className="card mb-4">
-                            <div className="card-body">
-                                This Table Contain The List of Production Orders
-                                .
-                            </div>
-                        </div>
+                       
                         <div className="card mb-4">
                             
-                            <MaterialTable columns={columns} data={tableData} 
+                            <MaterialTable columns={columns} data={tableData} title="List of Production Orders"
+                            
                             editable={{
                               // isEditHidden:(row)=>row.
                                 onRowAdd:(newData)=>new Promise((resolve,reject)=>{
@@ -178,7 +175,7 @@ export default function PO(props) {
                             options={{
                                 rowStyle:(data,index)=>index%2==0?{background:"#f5f5f5"}:null,
                                 columnStyle:{width:'50px'},
-                                headerStyle:{background:"#212529",color:"#fff"},
+                                headerStyle:{background:"#1B3449",color:"#fff"},
                                 //   fixedColumns: {
                                 //       left: 1, 
                                     

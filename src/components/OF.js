@@ -20,6 +20,8 @@ export default function (props) {
     const [tableValid,setTableValid]=useState([   ])
     const [con,setCon]=useState(0)
     const [ncon,setNCon]=useState(0)
+    const [realiseT,setrealiseT]=useState(0)
+    const [restT,setrestT]=useState(0)
 
 
 
@@ -29,6 +31,7 @@ export default function (props) {
 
     
     const send= ()=>{
+
        tablePieces.map((pie)=>{
            
        
@@ -40,8 +43,11 @@ export default function (props) {
         
          "NumOF": id,
          
-         "State":pie.Conformité_C,
-         "Priorité":pie.N
+         "State":ncon,
+         "Priorité":con,
+         "Realise_T":realiseT,
+         "Rest_T":restT,
+         "Avancement":parseInt((realiseT / (realiseT+restT))*100) 
      }
        )
      
@@ -80,10 +86,17 @@ export default function (props) {
               setTablePieces([...tablePieces])
               setCon(Prevcon=>Prevcon + parseInt(piece.Conformité_C))
               setNCon(Prevncon=>Prevncon + parseInt(piece.Conformité_NC))
+              setrealiseT(prevrealiseT=>prevrealiseT +  parseInt(piece.Réalisé_h))
+              setrestT(prevrestT=>prevrestT +  parseInt(piece.Rest))
+
+        
+              
 
            
           }
         }))
+        
+        
         
         
        
@@ -115,49 +128,47 @@ export default function (props) {
         
     //  return true
     // }
-},{title:"NumOF",field:"NumOF",initialEditValue:id},
-    {title:"Qté",field:"Qte",editable: ( row  ) =>  row.NumOF != tableValid.NumOF,validate:rowData=>{
+},{title:"PO_Num",field:"NumOF",initialEditValue:id},
+    {title:"Quantity",field:"Qte",editable: ( row  ) =>  row.NumOF != tableValid.NumOF,validate:rowData=>{
         if(rowData.Qte===undefined || rowData.Qte==="" ){
             return "Required"
         }
-      }},{title:"Réf",field:"Ref",editable: ( row  ) =>  row.NumOF != tableValid.NumOF,validate:rowData=>{
+      }},{title:"Ref",field:"Ref",editable: ( row  ) =>  row.NumOF != tableValid.NumOF,validate:rowData=>{
         if(rowData.Ref===undefined || rowData.Ref==="" ){
             return "Required"
         }
-      }},{title:"Désignation",field:"Désignation",editable: ( row  ) =>  row.NumOF != tableValid.NumOF,validate:rowData=>{
+      }},{title:"Designation",field:"Désignation",editable: ( row  ) =>  row.NumOF != tableValid.NumOF,validate:rowData=>{
         if(rowData.Désignation===undefined || rowData.Désignation==="" ){
             return "Required"
         }
       }},
-   {title:"Matiére",field:"Matiére",editable: ( row  ) =>  row.NumOF != tableValid.NumOF,validate:rowData=>{
+   {title:"Material",field:"Matiére",editable: ( row  ) =>  row.NumOF != tableValid.NumOF,validate:rowData=>{
     if(rowData.Matiére===undefined || rowData.Matiére==="" ){
         return "Required"
-    }
-  }},{title:"Dimension",field:"Dimension"},{title:"Qual",field:"Qual",editable: ( row  ) =>  row.NumOF != tableValid.NumOF},{title:"Prévu(h)",field:"Prévu_h"},
-   {title:"Réalisé(h)",field:"Réalisé_h"},{title:"Restant(h)",field:"Rest"},{title:"Conformité(C)",field:"Conformité_C"},{title:"Conformité(NC)",field:"Conformité_NC"},{title:"Plan2D",field:"plan",render:rowData=><Link to={`/dashboard${props.name}/PO/OF/piece${id + rowData.id_piéce}`} >piece</Link>}]
+    }{console.log(con)}
+  }},{title:"Dimension",field:"Dimension"},{title:"Qual",field:"Qual",editable: ( row  ) =>  row.NumOF != tableValid.NumOF},{title:"intended(h)",field:"Prévu_h"},
+   {title:"realized(h)",field:"Réalisé_h"},{title:"Restant(h)",field:"Rest"},{title:"Conformity(C)",field:"Conformité_C"},{title:"Conformity(NC)",field:"Conformité_NC"},{title:"Plan2D",field:"plan",render:rowData=><Link to={`/dashboard${props.name}/PO/OF/piece${id + rowData.id_piéce}`} >piece</Link>}]
   return (
 
     <div  >
       
         <main >
-                    <div className="container  text-black mt-5 " >
-                        <h1 className="mt-4">Numero {ncon} OF: {id}</h1>
+                    <div className="container  text-white mt-5 " >
+                      <div style={{backgroundImage:'linear-gradient(to right, #778491 , #004e92)',width:'300px',height:'120px',padding:'0px 10px',border:'3px solid black',borderRadius:'12px',marginBottom:'15px'}}>
+                        <h3 className="mt-4">PO  Num: {id}</h3>
+                        </div>
                         <ol className="breadcrumb mb-4">
                             
                             <li className="breadcrumb-item active"><a href={`/dashboard${props.name}/PO`}>PO</a></li>
                             <li className="breadcrumb-item active">OF</li>
                         </ol>
-                        <div className="card mb-5 " >
-                            <div className="card-body">
-                                This Table Contain The List of Pieces {tableValid.NumOF}
-                                .
-                            </div>
-                        </div>
+                       
                         
+                
                         <div className="card mb-5 ofcard" >
                             
                             
-                        <MaterialTable columns={columns} data={tablePieces} 
+                        <MaterialTable columns={columns} data={tablePieces}  title="List of Pieces"
                             editable={{
                                 
                                  //isEditable:(row)=>row.NumOF==tableValid.NumOF,
@@ -204,7 +215,10 @@ export default function (props) {
                                     .then(resp=>{setTablePieces() 
                                       resolve();
                                     })
-                                    window.location.reload(false);
+                                    
+                                    window.location.reload(false)
+                                    
+                                    
                                     
                                     
                                 })
@@ -212,7 +226,7 @@ export default function (props) {
                             
                             options={{ 
                                 rowStyle:(data,index)=>index%2==0?{background:"#f5f5f5"}:null,
-                                headerStyle:{background:"#212529",color:"#fff"},
+                                headerStyle:{background:"#1B3449",color:"#fff"},
                                 search:true,
                                 paging:true,
                                 filtering:true,
@@ -245,20 +259,25 @@ export default function (props) {
 
                             
                         </div>
+                        
                        
                        
                     </div>
-
+                    
                     </main>
                     
                      
-<div style={{marginTop:'500px',marginLeft:'45%'}}>
+<div style={{marginTop:'500px',marginLeft:'35%'}}>
 <Link to={{
     pathname:`/dashboard${props.name}/validate/${id}`, state:{stateparam: {id} }
 }}><MDBBtn rounded color='success' style={{height:'40px' ,width:'20%'}}  >
         Validate
       </MDBBtn></Link>
+      <MDBBtn rounded color='warning' style={{height:'40px' ,width:'20%',marginLeft:'20px'}} onClick={send} >
+        send
+      </MDBBtn>
 </div>
+
     </div>
     
     

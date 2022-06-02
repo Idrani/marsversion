@@ -129,7 +129,7 @@ td:nth-child(1){
     left: 0;
     width: 100%;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  background: url('login.gif');
+  background: url('log.jpg');
   background-size: contain;
   
   
@@ -140,7 +140,7 @@ td:nth-child(1){
     left: 0;
     width: 100%;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  background: url('forgot.gif');
+  background: url('for.gif');
   background-size: contain;
   
   
@@ -173,7 +173,7 @@ td:nth-child(1){
   padding: 200px;
   position: absolute;
  
-  background: #191919;
+  background-image: linear-gradient(to right, #191919 , #000428);
   
   text-align: center;
   transition: 0.25s;
@@ -188,7 +188,7 @@ td:nth-child(1){
   display: block;
   margin: 40px auto;
   text-align: center;
-  border: 1px solid #ffcc00;
+  border: 1px solid white;
   
   padding: 10px 10px;
   width: 350px;
@@ -204,7 +204,7 @@ td:nth-child(1){
   display: block;
   margin: 40px auto;
   text-align: center;
-  border: 1px solid #ffcc00;
+  border: 1px solid white;
   
   padding: 10px 10px;
   width: 350px;

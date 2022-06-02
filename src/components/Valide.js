@@ -57,13 +57,15 @@ export const Valide = (props) => {
   return (
     <div>
         <div class="container my-5" >
-        <h1 className="mt-4 text-black">List of Validated Production Orders   </h1>
-        <ol className="breadcrumb mb-4">
+          <div style={{borderBottom:'3px solid black'}}>
+        <h1 className="mt-4 text-black"> Validated Production Orders   </h1>
+        </div>
+        <ol className="breadcrumb mb-4" style={{marginTop:'5px'}}>
                             
                             <li className="breadcrumb-item active"><a href={`/dashboard${props.name}/PO`}>PO</a></li>
                            
                         </ol>
-  <div class="shadow-4 rounded-5 overflow-hidden" style={{marginTop:'100px'}}>
+  <div class="shadow-4 rounded-5 overflow-hidden" style={{marginTop:'10px'}}>
     <table class="table align-middle mb-0 bg-white">
       
       <thead class="bg-light">
@@ -96,7 +98,7 @@ export const Valide = (props) => {
            
           </td>
           <td>{val.pri}</td>
-          <td><input id='val.NUmOF' value={val.Priorité} style={{border:'2px solid black',padding:'12px',width:'50px',height:'30px'}} onChange = {e => setPriorité(e.target.value)}  /> <Button style={{height:'30px'}} onClick={(e) => { if(id=='aminedaami'){fetch('/validationOF',{
+          <td><input id='val.NUmOF' value={val.Priorité} style={{border:'2px solid black',padding:'12px',width:'50px',height:'30px'}} onChange = {e => setPriorité(e.target.value)}  /> <Button style={{height:'30px'}} onClick={(e) => { if(id=='adranimed'){fetch('/validationOF',{
           method:"PATCH",
           headers:{'Content-type':"application/json"},
           body:JSON.stringify(

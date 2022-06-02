@@ -108,8 +108,7 @@ const handelDate4 = () =>{
              .then(resp=>resp.map((user)=>{
               
               if(user.name==po.StatutPr){
-                  // setEmail(user.email)
-                  // setName(user.name)
+                  
                 const templateParams = {
                   name: user.name,
                   notes: id,
@@ -137,7 +136,7 @@ const handelDate4 = () =>{
            }
          })
               )
-              // window.location.reload(false);
+               window.location.reload(false);
              
              
              
@@ -154,28 +153,58 @@ const handelDate4 = () =>{
     
            
     const getnum=()=>{
-      let isMounted = true;
 
-    fetch('/List_OF_Pieces', {
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }
-
-    }).then(resp=>resp.json())
-    .then(resp => {
-      if(isMounted ){
-        resp.map((piece)=>{
-          if(piece.NumOF==id){
+      fetch('/PO_followUP').then(resp=>resp.json()).then(resp => {
+      
+        resp.map((po)=>{
+          if(po.NumOF==id){
               
-             tablePieces.push(piece)
-           setTablePieces([...tablePieces])
+             
+           
+           
+           fetch('/api/getusers').then(resp=>resp.json())
+           .then(resp=>resp.map((user)=>{
+            
+            if(user.name==po.StatutPr){
+                 setEmail(user.email)
+                 setName(user.name)
+             
+             
+         }
+       })
+            )
+             
+           
+           
            
            
        }
      })
-      } 
+      
     })
+        
+    //   let isMounted = true;
+
+    // fetch('/List_OF_Pieces', {
+    //   headers : { 
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json'
+    //    }
+
+    // }).then(resp=>resp.json())
+    // .then(resp => {
+    //   if(isMounted ){
+    //     resp.map((piece)=>{
+    //       if(piece.NumOF==id){
+              
+    //          tablePieces.push(piece)
+    //        setTablePieces([...tablePieces])
+           
+           
+    //    }
+    //  })
+    //   } 
+    // })
     
     // .then(resp=>resp.map((piece)=>{
     //      if(piece.NumOF==id){
@@ -254,10 +283,9 @@ const handelDate4 = () =>{
     useEffect(() => {
       
     getPieces();
-  
+    getnum();
 
    
-      
      
       
       
@@ -349,13 +377,15 @@ const handelDate4 = () =>{
   
    
     var templateParams1 = {
-        name: 'aymen',
-        email: 'aymeenlassoued@gmail.com'
+        name: {name},
+        email: {email},
+        of:id
     };
     var templateParams2 = {
         name: 'Khalil',
         
-        email: 'k.zaffati@samm-automation.com'
+        email: 'k.zaffati@samm-automation.com',
+        of:id
     };
     var templateParams3 = {
         name: 'Amine',
@@ -365,7 +395,8 @@ const handelDate4 = () =>{
     var templateParams4 = {
         name: 'Chef Atelier',
        
-        email: 'a.jemi@samm-automation.com'
+        email: '26868585adrani@gmail.com',
+        of:id
     };
     
 
@@ -603,13 +634,16 @@ const handelDate4 = () =>{
   
    
     <div class="container my-5" >
-        <h1 className="mt-4 text-black">Production Orders   Validation {id}</h1>
+      <div style={{backgroundImage:'linear-gradient(to right, #778491 , #004e92)',width:'300px',height:'120px',padding:'0px 10px',border:'3px solid black',borderRadius:'12px',marginBottom:'15px'}}>
+                        <h3 className="mt-4">Validation PO Num: {id} </h3>
+                        </div>
+        
         <ol className="breadcrumb mb-4">
                             <li className="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                            <li className="breadcrumb-item active"><a href="/dashboard/PO">PO</a></li>
-                            <li className="breadcrumb-item active"><a href={`/dashbord/PO/OF${id}`}>OF</a></li>
+                            <li className="breadcrumb-item active"><a href={`/dashboard${props.name}/PO`}>PO</a></li>
+                            <li className="breadcrumb-item active"><a href={`/dashboard${props.name}/PO/OF${id}`}>OF</a></li>
                         </ol>
-  <div class="shadow-4 rounded-5 overflow-hidden" style={{marginTop:'100px'}}>
+  <div class="shadow-4 rounded-5 overflow-hidden" style={{marginTop:'10px'}}>
     <table class="table align-middle mb-0 bg-white">
       
       <thead class="bg-light">
@@ -626,13 +660,13 @@ const handelDate4 = () =>{
             <div class="d-flex align-items-center">
              
               <div class="ms-3">
-                <p class="fw-bold mb-1" >Demandeur</p>
-                <p class="text-muted mb-0">john.doe@gmail.com</p>
+                <p class="fw-bold mb-1" >{name}</p>
+                <p class="text-muted mb-0">{email}</p>
               </div>
             </div>
           </td>
           <td>
-            <p class="fw-bold mb-1" >Demandeur</p>
+            <p class="fw-bold mb-1" >Applicant</p>
             
           </td>
           <td>
@@ -657,13 +691,13 @@ const handelDate4 = () =>{
             <div class="d-flex align-items-center">
              
               <div class="ms-3">
-                <p class="fw-bold mb-1">Chef de projet</p>
-                <p class="text-muted mb-0">alex.ray@gmail.com</p>
+                <p class="fw-bold mb-1">Project Leader</p>
+                <p class="text-muted mb-0"></p>
               </div>
             </div>
           </td>
           <td>
-            <p class="fw-bold mb-1" >Chef de projet</p>
+            <p class="fw-bold mb-1" >Project Leader</p>
             
           </td>
           
@@ -687,13 +721,13 @@ const handelDate4 = () =>{
             <div class="d-flex align-items-center">
              
               <div class="ms-3">
-                <p class="fw-bold mb-1">Resp. validation mécanique</p>
-                <p class="text-muted mb-0">kate.hunington@gmail.com</p>
+                <p class="fw-bold mb-1">Khalil Zaffati</p>
+                <p class="text-muted mb-0">k.zaffati@samm-automation.com</p>
               </div>
             </div>
           </td>
           <td>
-            <p class="fw-bold mb-1" >Resp. validation mécanique</p>
+            <p class="fw-bold mb-1" >Mechanical Design Manager</p>
             
           </td>
           
@@ -719,13 +753,13 @@ const handelDate4 = () =>{
             <div class="d-flex align-items-center">
              
               <div class="ms-3">
-                <p class="fw-bold mb-1">Resp. Production</p>
-                <p class="text-muted mb-0">kate.hunington@gmail.com</p>
+                <p class="fw-bold mb-1">Amine Daami</p>
+                <p class="text-muted mb-0">a.daami@samm-automation.com</p>
               </div>
             </div>
           </td>
           <td>
-            <p class="fw-bold mb-1" >Resp. Production</p>
+            <p class="fw-bold mb-1" >Production Manager</p>
             
           </td>
           
@@ -751,13 +785,13 @@ const handelDate4 = () =>{
             <div class="d-flex align-items-center">
              
               <div class="ms-3">
-                <p class="fw-bold mb-1" >Chef atelier</p>
-                <p class="text-muted mb-0">kate.hunington@gmail.com</p>
+                <p class="fw-bold mb-1" >Jemi</p>
+                <p class="text-muted mb-0">a.jemi@samm-automation.com</p>
               </div>
             </div>
           </td>
           <td>
-            <p class="fw-bold mb-1" >Chef atelier</p>
+            <p class="fw-bold mb-1" >Workshop Manager</p>
             
           </td>
           

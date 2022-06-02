@@ -288,7 +288,7 @@ const [rest,setRest]=useState(0);
          }).then(resp=>resp.json())
         
         
-            send();
+           
            
           
          }} >Terminer</Button></td>
