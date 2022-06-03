@@ -106,7 +106,7 @@ export default function (props) {
 
 
    useEffect(()=>{
-
+    console.log(props.name)
     getData();
       getPieces();
       

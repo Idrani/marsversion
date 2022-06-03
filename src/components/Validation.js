@@ -236,16 +236,23 @@ const handelDate4 = () =>{
               if(disnum===1){
                 setDate(val.date1);
                 
+                
              }
              else if(disnum===2){
               setDate(val.date1);
               setDate1(val.date2);
+              document.getElementById('n2').innerHTML = val.owner1;
+              
                
              }
              else if(disnum===3){
               setDate(val.date1);
               setDate1(val.date2);
               setDate2(val.date3);
+              document.getElementById('n2').innerHTML = val.owner1;
+              document.getElementById('n3').innerHTML = val.owner2;
+              
+
 
                
              }
@@ -254,7 +261,10 @@ const handelDate4 = () =>{
               setDate1(val.date2);
               setDate2(val.date3);
               setDate3(val.date4);
-
+              document.getElementById('n2').innerHTML = val.owner1;
+              document.getElementById('n3').innerHTML = val.owner2;
+              document.getElementById('n4').innerHTML = val.owner3;
+              
                
              }
              else if(disnum===5){
@@ -263,6 +273,11 @@ const handelDate4 = () =>{
               setDate2(val.date3);
               setDate3(val.date4);
               setDate4(val.date5);
+              document.getElementById('n2').innerHTML = val.owner1;
+              document.getElementById('n3').innerHTML = val.owner2;
+              document.getElementById('n4').innerHTML = val.owner3;
+              document.getElementById('n5').innerHTML = val.owner4;
+              
 
                
              }
@@ -281,7 +296,9 @@ const handelDate4 = () =>{
 
 
     useEffect(() => {
-      
+      console.log(name)
+      console.log(props.name)
+      console.log(id)
     getPieces();
     getnum();
 
@@ -402,6 +419,7 @@ const handelDate4 = () =>{
 
      
     function sendEmail1(e){
+     
       let dt = new Date().toLocaleDateString();
       let tt= new Date().toLocaleTimeString();
             setDisable1(true)
@@ -419,6 +437,7 @@ const handelDate4 = () =>{
             "date3": "2022-04-12",
             "date4": "2022-04-12",
             "date5": "2022-04-12"
+            
            }
             
                
@@ -434,10 +453,12 @@ const handelDate4 = () =>{
               }); 
             document.getElementById('v1').style.backgroundColor="#9dff9d"
             
+
+            
              
 
               fetch('/validationOF/' + id ,{
-               method:"PUT",
+               method:"PATCH",
                headers:{'Content-type':"application/json"},
                body:JSON.stringify(
                   {
@@ -449,13 +470,16 @@ const handelDate4 = () =>{
                 "date3": "2022-04-12",
                  "date4": "2022-04-12",
                 "date5": "2022-04-12"
+                
                 })
                
            }).then(resp=>resp.json())
            .then(resp=>{setEtat(resp) })
          
              console.log(dt)
-    }
+    
+ 
+  }
     
            
     
@@ -474,10 +498,10 @@ const handelDate4 = () =>{
                   "date2": "2022-04-12",
                   "date3": "2022-04-12",
                   "date4": "2022-04-12",
-                  "date5": "2022-04-12"
+                  "date5": "2022-04-12",
                  }
                  fetch('/validationOF/' + id ,{
-                  method:"PUT",
+                  method:"PATCH",
                   headers:{'Content-type':"application/json"},
                   body:JSON.stringify({
                    "NumOF": someData.NumOF,
@@ -487,7 +511,9 @@ const handelDate4 = () =>{
                   "date2": dt+'||'+tt,
                   "date3": "2022-04-12",
                    "date4": "2022-04-12",
-                  "date5": "2022-04-12"
+                  "date5": "2022-04-12",
+                  "owner1": props.name
+           
                   })
               }).then(resp=>resp.json())
               .then(resp=>{setEtat(resp) })
@@ -519,7 +545,7 @@ const handelDate4 = () =>{
                   "date5": "2022-04-12"
                  }
                 fetch('/validationOF/' + id ,{
-                  method:"PUT",
+                  method:"PATCH",
                   headers:{'Content-type':"application/json"},
                   body:JSON.stringify({
                    "NumOF": someData.NumOF,
@@ -529,7 +555,10 @@ const handelDate4 = () =>{
                   "date2": cdate1,
                   "date3": dt+'||'+tt,
                    "date4": "2022-04-12",
-                  "date5": "2022-04-12"
+                  "date5": "2022-04-12",
+                  
+            "owner2": props.name
+           
                   })
               }).then(resp=>resp.json())
               .then(resp=>{setEtat(resp) })
@@ -561,7 +590,7 @@ const handelDate4 = () =>{
                   "date5": "2022-04-12"
                  }
                 fetch('/validationOF/' + id ,{
-                  method:"PUT",
+                  method:"PATCH",
                   headers:{'Content-type':"application/json"},
                   body:JSON.stringify({
                    "NumOF": someData.NumOF,
@@ -571,7 +600,10 @@ const handelDate4 = () =>{
                   "date2": cdate1,
                   "date3": cdate2,
                    "date4": dt+'||'+tt,
-                  "date5": "2022-04-12"
+                  "date5": "2022-04-12",
+                  
+            "owner3": props.name
+            
                   })
               }).then(resp=>resp.json())
               .then(resp=>{setEtat(resp) })
@@ -604,7 +636,7 @@ const handelDate4 = () =>{
                  }
                    console.log(disnum)
                    fetch('/validationOF/' + id ,{
-                    method:"PUT",
+                    method:"PATCH",
                     headers:{'Content-type':"application/json"},
                     body:JSON.stringify({
                      "NumOF": someData.NumOF,
@@ -614,7 +646,9 @@ const handelDate4 = () =>{
                     "date2": cdate1,
                     "date3": cdate2,
                      "date4": cdate3,
-                    "date5": dt+'||'+tt
+                    "date5": dt+'||'+tt,
+                    
+                    "owner4": props.name
                     })
                 }).then(resp=>resp.json())
                 .then(resp=>{setEtat(resp) })
@@ -652,6 +686,8 @@ const handelDate4 = () =>{
           <th>Position</th>
           <th>Actions</th>
           <th>Validation Date</th>
+          <th>Clicked by</th>
+
         </tr>
       </thead>
       <tbody>
@@ -671,18 +707,30 @@ const handelDate4 = () =>{
           </td>
           <td>
           <MDBBtn  id='v11' rounded className='mx-2' color='success'  onClick={() => {
+             if(name==props.name){
           handelDate();
           if(disnum==0){
             sendEmail1();
           }
           
-        }}  disabled={disable1}>
+        }
+        else {
+    
+          toast.error("This PO Should Be Validated Only By Mr "+name, {
+            theme: "dark",position: toast.POSITION.TOP_CENTER
+          })
+      }
+      }
+        
+        }  disabled={disable1}>
         Validate
       </MDBBtn>
       
           </td>
           <td><h5>{cdate}</h5>
           </td>
+          <td id='n1'></td>
+          
         </tr>
 
 
@@ -715,6 +763,7 @@ const handelDate4 = () =>{
           </td>
           <td><h5>{cdate1}</h5>
           </td>
+          <td id='n2'></td>
         </tr >
         <tr id="v3">
           <td>
@@ -745,6 +794,7 @@ const handelDate4 = () =>{
           </td>
           <td><h5>{cdate2}</h5>
           </td>
+          <td id='n3'></td>
         </tr>
 
 
@@ -777,6 +827,7 @@ const handelDate4 = () =>{
           </td>
           <td><h5>{cdate3}</h5>
           </td>
+          <td id='n4'></td>
         </tr>
 
 
@@ -809,6 +860,7 @@ const handelDate4 = () =>{
           </td>
           <td><h5>{cdate4}</h5>
           </td>
+          <td id='n5'></td>
         </tr>
       </tbody>
 
@@ -828,7 +880,9 @@ const handelDate4 = () =>{
        "date2": "2022-04-12",
        "date3": "2022-04-12",
         "date4": "2022-04-12",
-       "date5": "2022-04-12"
+       "date5": "2022-04-12",
+       
+       
        })
   })
   handleClickk();

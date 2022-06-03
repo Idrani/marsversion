@@ -82,7 +82,7 @@ if (auth) {
     <div className='all'>
     <div className='bb  d-flex justify-content align-item '  >
     
-    <img src='marsversion/src/logiiin.jpg'/>
+    
     <form onSubmit={ handleSubmit } className='box'  >
    
     
